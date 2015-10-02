@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/master/jsp/baselayout.jsp">
+		<put-attribute name="master_header" value="/master/jsp/template_header.jsp" />
+		<put-attribute name="master_menu_main" value="/master/jsp/main_menu.jsp" />
+		<put-attribute name="master_content" value="" />
+		<put-attribute name="master_footer" value="/master/jsp/template_footer.jsp" />
+	</definition>
+
+	<definition name="tiles.welcome" extends="baseLayout">
+		<put-attribute name="master_content" value="/master/jsp/welcome.jsp" />
+	</definition>
+	<definition name="tiles.error" extends="baseLayout">
+		<put-attribute name="master_content" value="/master/jsp/error.jsp" />
+	</definition>
+</tiles-definitions>

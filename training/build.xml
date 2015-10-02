@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="MyProject" default="deploy" basedir=".">
+    <description>simple example build file</description>
+	<!-- set global properties for this build -->
+	<property name="src" location="WEB-INF/src"/>
+	<property name="build" location="build"/>
+	<property name="deploy"  location="deploy"/>
+	<property name="libs"  location="WEB-INF/lib"/>
+	<property name="web.xml" location="WEB-INF/web.xml"/>
+	<property name="tomcat.dir" location="C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\webapps"/>
+	<property name="tomcat.work.dir" location="C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\work"/>
+	<property name="war.file.dir" location ="deploy/war/training.war"/>
+	<path id="libs.path">
+		<fileset dir="${libs}"> 
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+  
+	<!-- Compile the java code from ${src} into ${build} -->
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}/classes"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile the source " >
+		<!-- reference to jar files -->
+		
+		<javac srcdir="${src}" encoding="ISO-8859-1" debug="false" destdir="${build}/classes">
+			 <classpath refid="libs.path"/>
+		</javac>
+	</target>
+
+	<target name="deploy" depends="compile" description="generate the war file" >
+		<!-- Create the distribution directory -->
+		<delete dir="${deploy}"/>
+		<delete dir="${tomcat.dir}/training"/>
+		<delete dir="${tomcat.work.dir}"/>
+		<delete file="${tomcat.dir}/training.war"/>
+		<mkdir dir="${deploy}/war"/>
+
+		<war destfile="${war.file.dir}" webxml="${web.xml}">
+			<fileset dir=".">
+				<exclude name=".classpath"/>
+				<exclude name=".project"/>
+				<exclude name=".tomcatplugin"/>
+				<exclude name="build.xml"/>
+				<exclude name="/.settings/"/>
+				<exclude name="/build/"/>
+				<exclude name="/deploy/"/>
+				<exclude name="/WEB-INF/src/"/>
+			</fileset>
+		</war>
+		<copy file="${war.file.dir}" todir="${tomcat.dir}"/>
+	</target>
+
+	<target name="clean" description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${deploy}"/>
+	</target>
+	
+	
+</project>
