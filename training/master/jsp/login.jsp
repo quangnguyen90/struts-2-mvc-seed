@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><s:property value="getText('master.title')" /></title>
-<link href="<s:url value="/master/css/default.css"/>" rel="stylesheet"
+<link href="<s:url value="/master/assets/css/default.css"/>" rel="stylesheet"
 	type="text/css" />
 </head>
 <body>
