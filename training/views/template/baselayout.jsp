@@ -7,13 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Alij Lab</title>
-<link href="<s:url value="/master/assets/css/default.css"/>" rel="stylesheet"
+<link href="<s:url value="/assets/css/default.css"/>" rel="stylesheet"
 	type="text/css" />
-<link href="<s:url value="/master/assets/css/jquery-ui.css"/>" rel="stylesheet"
+<link href="<s:url value="/assets/css/jquery-ui.css"/>" rel="stylesheet"
 	type="text/css" />
 
-<script type="text/javascript" src="<s:url value="/master/assets/js/jquery-1.7.1.min.js"/>"></script>
-<script type="text/javascript" src="<s:url value="/master/assets/js/jquery-ui.min.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/assets/js/jquery-1.7.1.min.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/assets/js/jquery-ui.min.js"/>"></script>
 
 
 

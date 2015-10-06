@@ -27,7 +27,7 @@
 	<package name="master_login" namespace="/master" extends="master_tiles">		
 		<interceptors>
 			<!-- LoginMasterInterceptorクラスに対して「login」と名前を定義 -->
-			<interceptor name="master_login" class="common.base.LoginMasterInterceptor" />
+			<interceptor name="master_login" class="controllers.interceptors.LoginMasterInterceptor" />
 			<!-- LoginMasterInterceptorとStruts標準のdefaultStackを 足し合わせた新しい「defaultMasterLoginStack」を定義 -->
 			<interceptor-stack name="defaultMasterLoginStack">
 				<interceptor-ref name="master_login" />
@@ -44,7 +44,7 @@
 		
 		<global-results>
 			<!-- <result name="master_login" type="tiles">tiles.A_3</result> -->
-			<result name="master_login">/master/jsp/A-1.jsp</result>
+			<result name="master_login">/views/template/A-1.jsp</result>
 		</global-results>
 		<!-- actionタグは記述不要 -->
 	</package>

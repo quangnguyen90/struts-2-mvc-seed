@@ -6,17 +6,17 @@
 
 <tiles-definitions>
 
-	<definition name="baseLayout" template="/master/jsp/baselayout.jsp">
-		<put-attribute name="master_header" value="/master/jsp/template_header.jsp" />
-		<put-attribute name="master_menu_main" value="/master/jsp/main_menu.jsp" />
+	<definition name="baseLayout" template="/views/template/baselayout.jsp">
+		<put-attribute name="master_header" value="/views/template/template_header.jsp" />
+		<put-attribute name="master_menu_main" value="/views/template/main_menu.jsp" />
 		<put-attribute name="master_content" value="" />
-		<put-attribute name="master_footer" value="/master/jsp/template_footer.jsp" />
+		<put-attribute name="master_footer" value="/views/template/template_footer.jsp" />
 	</definition>
 
 	<definition name="tiles.welcome" extends="baseLayout">
-		<put-attribute name="master_content" value="/master/jsp/welcome.jsp" />
+		<put-attribute name="master_content" value="/views/template/welcome.jsp" />
 	</definition>
 	<definition name="tiles.error" extends="baseLayout">
-		<put-attribute name="master_content" value="/master/jsp/error.jsp" />
+		<put-attribute name="master_content" value="/views/auth/error.jsp" />
 	</definition>
 </tiles-definitions>

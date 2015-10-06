@@ -14,8 +14,8 @@ import dao.mapper.UserMapper;
 
 @Results({
 	 @Result(name="success", type="tiles" ,location="tiles.welcome"),
-	  @Result(name="loginLoad" ,  location="/master/jsp/login.jsp"),
-	  @Result(name="error" ,  location="/master/jsp/login.jsp"),
+	  @Result(name="loginLoad" ,  location="/views/auth/login.jsp"),
+	  @Result(name="error" ,  location="/views/auth/login.jsp"),
 	  @Result(name="errorEx" ,  type="tiles" ,location="tiles.error")
 	})
 @ParentPackage("master_tiles")
