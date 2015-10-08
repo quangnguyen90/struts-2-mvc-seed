@@ -4,6 +4,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.dao.UserDAO;
+import dao.domain.User;
+import dao.mapper.UserMapper;
+
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -13,9 +17,6 @@ import com.opensymphony.xwork2.ValidationAware;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import common.util.Consts;
 
-import dao.dao.UserDAO;
-import dao.domain.User;
-import dao.mapper.UserMapper;
 
 public class LoginMasterInterceptor extends AbstractInterceptor implements SessionAware{
 	private static final long serialVersionUID = 1L;

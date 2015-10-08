@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.log4j.Logger;
 
+import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 文字列情報・日付情報等の文字編集Util

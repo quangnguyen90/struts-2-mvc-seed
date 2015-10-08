@@ -44,7 +44,7 @@
 		
 		<global-results>
 			<!-- <result name="master_login" type="tiles">tiles.A_3</result> -->
-			<result name="master_login">/views/template/A-1.jsp</result>
+			<result name="master_login">/views/auth/login.jsp</result>
 		</global-results>
 		<!-- actionタグは記述不要 -->
 	</package>
@@ -54,7 +54,7 @@
 	<package name="develop_login" namespace="/develop" extends="struts-default">
 		<interceptors>
 			<!-- LoginDevelopInterceptorクラスに対して「login」と名前を定義 -->
-			<interceptor name="develop_login" class="common.base.LoginDevelopInterceptor" />
+			<interceptor name="develop_login" class="controllers.interceptors.LoginDevelopInterceptor" />
 			<!-- LoginDevelopInterceptorとStruts標準のdefaultStackを 足し合わせた新しい「defaultDevelopLoginStack」を定義 -->
 			<interceptor-stack name="defaultDevelopLoginStack">
 				<interceptor-ref name="develop_login" />
@@ -82,7 +82,7 @@
 	<package name="customer_login" namespace="/customer" extends="customer_tiles">
 		<interceptors>
 			<!-- LoginCustomerInterceptorクラスに対して「login」と名前を定義 -->
-			<interceptor name="customer_login" class="common.base.LoginCustomerInterceptor" />
+			<interceptor name="customer_login" class="controllers.interceptors.LoginCustomerInterceptor" />
 			<!-- LoginCustomerInterceptorとStruts標準のdefaultStackを 足し合わせた新しい「defaultCustomerLoginStack」を定義 -->
 			<interceptor-stack name="defaultCustomerLoginStack">
 				<interceptor-ref name="customer_login" />

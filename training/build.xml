@@ -7,8 +7,8 @@
 	<property name="deploy"  location="deploy"/>
 	<property name="libs"  location="WEB-INF/lib"/>
 	<property name="web.xml" location="WEB-INF/web.xml"/>
-	<property name="tomcat.dir" location="C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\webapps"/>
-	<property name="tomcat.work.dir" location="C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\work"/>
+	<property name="tomcat.dir" location="C:\xampp\tomcat\webapps"/>
+	<property name="tomcat.work.dir" location="C:\xampp\tomcat\work"/>
 	<property name="war.file.dir" location ="deploy/war/training.war"/>
 	<path id="libs.path">
 		<fileset dir="${libs}"> 

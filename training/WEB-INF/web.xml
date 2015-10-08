@@ -39,10 +39,14 @@
 		<error-code>404</error-code>
 		<location>/error.jsp</location>
 	</error-page>
-
+	
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+	<welcome-file>index.htm</welcome-file>
 	</welcome-file-list>
+
+	<!--  <welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list> -->
 
 	<!-- <security-constraint>
 		<web-resource-collection>
@@ -54,15 +58,14 @@
 			<role-name>Denied</role-name>
 		</auth-constraint>
 	</security-constraint> -->
-
+	
+	<!-- Session time out tu log out -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
 	<security-role>
 		<role-name>Denied</role-name>
 	</security-role>
-
-
-
-	<welcome-file-list>
-		<welcome-file>index.htm</welcome-file>
-	</welcome-file-list>
 
 </web-app>

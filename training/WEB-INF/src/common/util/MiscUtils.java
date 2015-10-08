@@ -9,12 +9,18 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.Cookie;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
+
+//import dao.domain.UserCookie;
 
 /**
  * 文字列情報・日付情報等の文字編集Util
@@ -41,7 +47,8 @@ public class MiscUtils  {
 			"yy-MM-dd",
 			"yyyyMMdd",
 			"yyMMdd",
-			"MMdd"
+			"MMdd",
+			"dd/MM/yyyy"
 		};
 
 
@@ -430,6 +437,18 @@ public class MiscUtils  {
 		}
 	}
 
+	public static String cnvDspDate2(String s) {
+		try{
+			if (s==null){
+				return s;
+			}else{
+				return formatDate(parseDate(s),"dd/MM/yyyy");
+			}
+		}catch (Exception e){
+			return null;
+		}
+	}
+	
 	/**
 		 * String型で指定された数値データに、小数点以下の桁数をそろえるために0
 		 * を追加したり、整数部にカンマを追加したりします。
@@ -850,6 +869,16 @@ public class MiscUtils  {
 			return null;
 		}
 		
+		public static final Date parseFromFormatString2(String date){
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			try {
+				return simpleDateFormat.parse(date);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
 		/**
 		 * @author thuna
 		 * @Description: encrypt a input string by md5 algorithm
@@ -857,22 +886,134 @@ public class MiscUtils  {
 		 * @return String
 		 */
 		public static final String encryptedMd5(String plainText){
-			MessageDigest m;
-			try {
-				m = MessageDigest.getInstance("MD5");
-				m.reset();
-				m.update(plainText.getBytes());
-				byte[] digest = m.digest();
-				BigInteger bigInt = new BigInteger(1, digest);
-				String hashText = bigInt.toString(16);
-				if(hashText.length() > 30){
-					hashText = hashText.substring(0, 30);
+			if(plainText != null){
+				MessageDigest m;
+				try {
+					m = MessageDigest.getInstance("MD5");
+					m.reset();
+					m.update(plainText.getBytes());
+					byte[] digest = m.digest();
+					BigInteger bigInt = new BigInteger(1, digest);
+					String hashText = bigInt.toString(16);
+					if(hashText.length() > 30){
+						hashText = hashText.substring(0, 30);
+					}
+					return hashText;
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				return hashText;
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			return null;
 		}
+		
+		/**
+		 * @author thuna
+		 * @Description: add user name and password to cookie
+		 * @param userId
+		 * @param passWord
+		 */
+		/*public static final void addUserCookie(String userId, String passWord){
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+        	Cookie userCookie = null;
+        	Cookie passCookie = null;
+	        for(int i = 0; i < cookies.length; i++) {
+	            if (cookies[i].getName().equals("UserId")) {
+	            	userCookie = cookies[i];
+	            }else if(cookies[i].getName().equals("PassWord")){
+	            	passCookie = cookies[i];
+	            }
+	            if(userCookie != null && passCookie != null){
+	            	break;
+	            }
+	        }  
+
+	        // Add user name to cookie
+	        if (userCookie == null) {
+	            userCookie = new Cookie("UserId", userId);
+	        }
+            userCookie.setValue(userId);
+            ServletActionContext.getResponse().addCookie(userCookie);
+            // Add password to cookie
+	        if (passCookie == null) {
+	            passCookie = new Cookie("PassWord", passWord);
+	        }
+	        passCookie.setValue(passWord);
+	        ServletActionContext.getResponse().addCookie(passCookie);
+		}*/
+		/**
+		 * @author thuna
+		 * @Description: delete user from cookie
+		 */
+		/*public static final void deleteUserCookie(){
+			int count = 0;
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+	        for(int i = 0; i < cookies.length; i++) {
+	            if (cookies[i].getName().equals("UserId")) {
+	            	cookies[i].setValue("");
+	            	count++;
+	            	ServletActionContext.getResponse().addCookie(cookies[i]);
+	            }else if(cookies[i].getName().equals("PassWord")){
+	            	cookies[i].setValue("");
+	            	count++;
+	            	ServletActionContext.getResponse().addCookie(cookies[i]);
+	            }
+	            if(count >= 2){
+	            	break;
+	            }
+	        }  
+		}*/
+		
+		/*public static final UserCookie isSavedUserCookie(){
+			UserCookie userCookie = new UserCookie();
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+	        for(int i = 0; i < cookies.length; i++) {
+	        	if(cookies[i].getValue() != null && cookies[i].getValue().length() > 0){
+	        		if(cookies[i].getName().equals("UserId")){
+	        			userCookie.setSaved(true);
+	        			userCookie.setUserName(cookies[i].getValue());
+	        		}else if(cookies[i].getName().equals("PassWord")){
+	        			userCookie.setSaved(true);
+	        			userCookie.setPassWord(cookies[i].getValue());
+	        			if(userCookie.getUserName().length() > 0){
+	        				break;
+	        			}
+	        		}
+	        	}
+	        }
+	        return userCookie;
+		}
+		*/
+
+		/**
+		 * @author LanCT
+		 * @param int lenght
+		 * @return String random password
+		 * @description get random n char password
+		 */
+		private static final String dCase = "abcdefghijklmnopqrstuvwxyz";
+		private static final String uCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		private static final String intChar = "0123456789";
+	    public static String returnRandomPassword(int lenght) {
+	    	String pass = "";
+			Random r = new Random();
+	    	Random r1 = new Random();
+	        while (pass.length () != lenght-2){
+	            int rPick = r.nextInt(2);
+	            int spot;
+	            if (rPick == 0){
+	                spot = r1.nextInt(25);
+	                pass += dCase.charAt(spot);
+	            } else{
+	                spot = r1.nextInt (25);
+	                pass += uCase.charAt(spot);
+	            }
+	        }
+	        for(int i=0; i < 2; i++){
+	        	int spot;
+	        	spot = r1.nextInt (9);
+	        	pass += intChar.charAt (spot);
+	        }
+	        return pass;
+	    }
 }
