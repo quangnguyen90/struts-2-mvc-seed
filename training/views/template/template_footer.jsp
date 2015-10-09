@@ -1,1 +1,1 @@
-<p>Copyright © 2012, Alij Lab. All Rights Reserved. </p>
+<p>Copyright © 2015, Quang Nguyen Phu. All Rights Reserved. </p>

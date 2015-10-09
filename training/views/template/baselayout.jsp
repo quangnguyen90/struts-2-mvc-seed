@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Alij Lab</title>
+<title>Struts 2 MVC</title>
 <link href="<s:url value="/assets/css/default.css"/>" rel="stylesheet"
 	type="text/css" />
 <link href="<s:url value="/assets/css/jquery-ui.css"/>" rel="stylesheet"

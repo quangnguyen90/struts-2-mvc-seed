@@ -4,23 +4,24 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
-	<!-- アクセスの際にhtmlの拡張子を付ける定義 -->
 	<constant name="struts.action.extension" value="html" />
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
-
-	<!-- メッセージプロパティの設定(複数の場合はカンマ[,]区切り) -->
+	
+	<!-- struts2-convention-plugin-*.jar : plugin auto find action if it is not be declared in struts.xml  -->
+	<constant name="struts.convention.action.suffix" value="Action" />
+	<constant name="struts.convention.package.locators" value="action, actions, struts, struts2" />
+	
+	<!-- Plugin to load multiple language -->
 	<constant name="struts.custom.i18n.resources" value="messages" />
 
 	<constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.configuration.xml.reload" value="true" />
 	<constant name="struts.codebehind.defaultPackage" value="master_login" />
-	<!-- 独自パッケージとして「master_login」を定義 -->
 	
 	<package name="master_tiles" namespace="/master" extends="struts-default">
 		<result-types>
-			<result-type name="tiles"
-				class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 	</package>
 	
@@ -48,56 +49,8 @@
 		</global-results>
 		<!-- actionタグは記述不要 -->
 	</package>
-
-	<constant name="struts.codebehind.defaultPackage" value="develop_login" />
-	<!-- 独自パッケージとして「develop_login」を定義 -->
-	<package name="develop_login" namespace="/develop" extends="struts-default">
-		<interceptors>
-			<!-- LoginDevelopInterceptorクラスに対して「login」と名前を定義 -->
-			<interceptor name="develop_login" class="controllers.interceptors.LoginDevelopInterceptor" />
-			<!-- LoginDevelopInterceptorとStruts標準のdefaultStackを 足し合わせた新しい「defaultDevelopLoginStack」を定義 -->
-			<interceptor-stack name="defaultDevelopLoginStack">
-				<interceptor-ref name="develop_login" />
-				<interceptor-ref name="defaultStack" />
-			</interceptor-stack>
-		</interceptors>
-		<!-- デフォルトのinterceptorを、defaultDevelopLoginStackに設定 -->
-		<default-interceptor-ref name="defaultDevelopLoginStack" />
-		<!-- 「return "login"」「return "mainmenu"」に対して、固定のＵＲＬを定義 -->
-		<global-results>
-			<result name="develop_login">/develop/index.jsp</result>
-			<result name="mainmenu" type="redirect">mainMenu.action</result>
-		</global-results>
-		<!-- actionタグは記述不要 -->
+	
+	<package name="home_page" namespace="/welcome" extends="master_tiles">
+		<action name="home" class="models.actions.home.HomeAction" method="welcome"></action>
 	</package>
-
-	<constant name="struts.codebehind.defaultPackage" value="customer_login" />
-	<package name="customer_tiles" namespace="customer" extends="struts-default">
-                <result-types>
-                        <result-type name="tiles"
-                                class="org.apache.struts2.views.tiles.TilesResult" />
-                </result-types>
-        </package>
-	<!-- 独自パッケージとして「customer_login」を定義 -->
-	<package name="customer_login" namespace="/customer" extends="customer_tiles">
-		<interceptors>
-			<!-- LoginCustomerInterceptorクラスに対して「login」と名前を定義 -->
-			<interceptor name="customer_login" class="controllers.interceptors.LoginCustomerInterceptor" />
-			<!-- LoginCustomerInterceptorとStruts標準のdefaultStackを 足し合わせた新しい「defaultCustomerLoginStack」を定義 -->
-			<interceptor-stack name="defaultCustomerLoginStack">
-				<interceptor-ref name="customer_login" />
-				<interceptor-ref name="defaultStack" />
-			</interceptor-stack>
-		</interceptors>
-		<!-- デフォルトのinterceptorを、defaultCustomerLoginStackに設定 -->
-		<default-interceptor-ref name="defaultCustomerLoginStack" />
-		<!-- 「return "login"」「return "mainmenu"」に対して、固定のＵＲＬを定義 -->
-		<global-results>
-			<result name="customer_login">/customer/index.jsp</result>
-			<result name="mainmenu" type="redirect">mainMenu.action</result>
-		</global-results>
-		<!-- actionタグは記述不要 -->
-	</package>
-
-
 </struts>
