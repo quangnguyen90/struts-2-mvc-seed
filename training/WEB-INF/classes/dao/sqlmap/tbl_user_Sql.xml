@@ -3,18 +3,227 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.mapper.UserMapper">
-
 	<resultMap type="dao.domain.User" id="userResult">
 		<result column="username" property="username" />
 		<result column="password" property="password" />
+		<result column="password" property="newPassword" />
 		<result column="fullname" property="fullname" />
 		<result column="address" property="address" />
 		<result column="email" property="email" />
+		<result column="tel" property="tel" />
+		<result column="dob" property="dob" />
+		<result column="status" property="status" />
+		<result column="userType" property="userType" />
+		<result column="cityId" property="cityId" />
+		<result column="districtId" property="districtId" />
+		<result column="temporaryPassword" property="temporaryPassword" />
+		<result column="gender" property="gender" />
+		<result column="avatar" property="avatar" />
 	</resultMap>
+	<!-- ========================================================= -->
+	<!-- ParameterType Rule: - insert: user - update: user - delete: string, int - select: user (more parameters), string, int (1 parameter), empty (if select all, no condition) -->
+	<!-- resultType Rule: - insert: No - update: No - delete: No - select: Yes -->
+	<!-- resultMap Rule: - insert: No - update: No - delete: No - select: Yes -->
 
+	<!-- LOGIN -->
 	<select id="select" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
-		SELECT username,password,fullname,address,email
-		FROM users 
+		SELECT username, password, fullname, address, email, tel, dob, status, userType, cityId, districtId, gender, avatar
+		FROM users
 		WHERE username = #{username} AND password = #{password}
     </select>
+    <!--END LOGIN -->
+    
+    <select id="login" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
+		SELECT username, password, fullname, address, email, tel, dob, status, userType, cityId, districtId, gender, avatar
+		FROM users
+		WHERE username = #{username} AND password = #{password} AND userType = 2
+    </select>
+    <!--END LOGIN -->
+    <!-- ========================================================= -->
+
+    <!-- GET OLD PASSWORD -->
+	<select id="validateOldPassword" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
+		SELECT password, username
+		FROM users
+		WHERE username = #{username} AND password = #{password}
+	</select>
+	<!-- END GET OLD PASSWORD -->
+	<!-- ========================================================= -->
+
+	<!-- REGISTER USER -->
+	<insert id="insertUser" parameterType="dao.domain.User">
+		INSERT INTO
+		users(username, email, password, userType,
+		status, gender, dob,
+		fullname, address,
+		districtId, cityId, tel, avatar)
+		VALUES
+		(#{username},#{email},#{password},#{userType},1,#{gender},#{dob},#{fullname},
+		#{address},#{districtId},#{cityId},#{tel},#{avatar})
+	</insert>
+	<!-- END REGISTER USER -->
+	<!-- ========================================================= -->
+
+	<!-- CHANGE PASSWORD -->
+	<update id="updatePassword" parameterType="dao.domain.User">
+		UPDATE users
+		set password = #{newPassword}
+		WHERE username = #{username}
+	</update>
+	<!-- END CHANGE PASSWORD -->
+	<!-- ========================================================= -->
+
+	<!-- VALIDATE USER EXIST -->
+	<select id="validateUserExist" parameterType="String" resultType="User" resultMap="userResult">
+		SELECT username
+		FROM users
+		WHERE username = #{username}
+	</select>
+	<!-- END VALIDATE USER EXIST -->
+	<!-- ========================================================= -->
+
+	<!-- VALIDATE USER EMAIL EXIST -->
+	<select id="validateUserEmailExist" parameterType="String" resultType="User" resultMap="userResult">
+		SELECT email
+		FROM users
+		WHERE email= #{email}
+	</select>
+	<!-- END VALIDATE USER EMAIL EXIST -->
+	<!-- ========================================================= -->
+
+	<!-- VALIDATE USER STATUS -->
+	<select id="validateUserStatus" parameterType="String" resultType="User" resultMap="userResult">
+		SELECT status
+		FROM users
+		WHRE username =#{username}
+	</select>
+	<!-- END VALIDATE USER STATUS -->
+	<!-- ========================================================= -->
+
+	<!-- VALIDATE ACTIVE USER STATUS -->
+	<select id="validateActiveUser" parameterType="String" resultType="User" resultMap="userResult">
+		SELECT status
+		FROM users
+		WHRE username =#{username}
+	</select>
+	<!-- END VALIDATE ACTIVE USER STATUS -->
+	<!-- ========================================================= -->
+
+	<!-- GET USER BY USER ID  -->
+	<select id="getUserById" parameterType="String" resultType="User" resultMap="userResult">
+	    SELECT * 
+		FROM users
+	    WHERE username =#{username}
+	</select>
+	<!-- END GET USER BY USER ID -->
+	<!-- ========================================================= -->
+	
+	<!-- VALIDATE USER OR NOT -->
+	<select id="validateUserOrNot" parameterType="String" resultMap="userResult">
+	    SELECT userType
+	    FROM users
+	    WHERE username = #{username}
+	</select>
+	<!-- END VALIDATE CONSUMER OR NOT -->
+	<!-- ========================================================= -->
+
+	<!-- GET USER BY ID TO UPDATE -->
+	<select id="getUserById2" parameterType="String" resultType="User" resultMap="userResult">
+	    SELECT username, email, password, gender, dob, fullname, address,
+		districtId, cityId, tel 
+		FROM users
+	    WHERE username =#{username}
+	</select>
+	<!-- END USER BY ID TO UPDATE -->
+	<!-- ========================================================= -->
+
+	<!-- UPDATE USER -->
+	<update id="updateUser" parameterType="dao.domain.User">
+	    UPDATE users
+	    SET gender = #{gender}, email = #{email},
+	    dob = #{dob}, fullname = #{fullname}, address = #{address},
+		districtId = #{districtId}, cityId = #{cityId}, tel = #{tel}, avatar = #{avatar} WHERE username = #{username} 
+	</update>
+	<!--END UPDATE USER-->
+	<!-- ========================================================= -->
+
+	<!-- RETRIVE PASSWORD -->
+	<select id="retrievePassword" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
+	    SELECT password, username, email, temporaryPassword 
+	    FROM users
+	    WHERE username = #{username} AND email = #{email}
+	</select>
+	<!-- END RETRIVE PASSWORD -->
+	<!-- ========================================================= -->
+
+	<!-- CREATE TEMPORARY PASSWORD -->
+	<update id="updateTemporaryPassword" parameterType="dao.domain.User">
+	    UPDATE users
+	    SET temporaryPassword = #{temporaryPassword}
+	    WHERE username = #{username}
+	</update>
+	<!-- END CREATE TEMPORARY PASSWORD -->
+	<!-- ========================================================= -->
+
+	<!-- VALIDATE TEMPORARY PASSWORD -->
+	<select id="validateTemporaryPassword" parameterType="String" resultType="User" resultMap="userResult">
+	    SELECT temporaryPassword
+	    FROM users
+	    WHERE username = #{username}
+	</select>
+	<!-- END VALIDATE TEMPORARY PASSWORD -->
+	<!-- ========================================================= -->
+
+	<!-- VALIDATE MATCHING USERNAME & EMAIL -->
+	<select id="validateEmailMatchUsername" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
+	    SELECT username, email
+		FROM users
+		WHERE username = #{username} AND email = #{email}
+	</select>
+	<!-- END VALIDATE MATCHING USERNAME & EMAIL -->
+	<!-- ========================================================= -->
+
+	<!-- DELETE USER-->
+	<delete id='deleteUser' parameterType='string'>
+    	DELETE FROM users WHERE username = #{username}
+	</delete>
+	<!-- END DELETE USER-->
+	<!-- ========================================================= -->
+	
+	<!-- ENABLE USER -->
+	<update id="enableUser" parameterType="String">
+	    UPDATE users
+	    SET status = 1
+	    WHERE username = #{username}
+	</update>
+	<!-- END ENABLE USER -->
+	<!-- ========================================================= -->
+	
+	<!-- DISBALE USER -->
+	<update id="disableUser" parameterType="String">
+	    UPDATE users
+	    SET status = 0
+	    WHERE username = #{username}
+	</update>
+	<!-- END DISBALE USER -->
+	<!-- ========================================================= -->
+	
+	<!-- RESET PASSWORD -->
+	<update id="resetUserPassword" parameterType="String">
+	    UPDATE users
+	    SET password =  'e10adc3949ba59abbe56e057f20f883e'
+	    WHERE username = #{username}
+	</update>
+	<!-- END RESET PASSWORD -->
+	
+	<select id="getAllUsers" parameterType="map" resultType="User" resultMap="userResult">
+		SELECT *
+		FROM users 
+		LIMIT #{limit} OFFSET #{offset}
+    </select>
+	
+    <select id="countForSearch" resultType="int">
+		SELECT count(*)
+		FROM users
+	</select>
 </mapper>

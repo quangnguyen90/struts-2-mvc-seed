@@ -4,9 +4,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias
-        	type="dao.domain.User"
-            alias="User" />
+        <typeAlias type="dao.domain.User" alias="User" />
+        <typeAlias type="dao.domain.News" alias="News" />
+        <typeAlias type="dao.domain.City" alias="City" />
+        <typeAlias type="dao.domain.District" alias="District" />
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -22,5 +23,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     </environments>
     <mappers>
         <mapper resource="dao/sqlmap/tbl_user_Sql.xml" />
+        <mapper resource="dao/sqlmap/tbl_news_Sql.xml" />
+        <mapper resource="dao/sqlmap/tbl_city_Sql.xml" />
+        <mapper resource="dao/sqlmap/tbl_district_Sql.xml" />
     </mappers>
 </configuration>

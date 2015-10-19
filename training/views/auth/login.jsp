@@ -1,67 +1,75 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page import="models.actions.auth.recaptcha.ReCaptcha"%>
+<%@ page import="models.actions.auth.recaptcha.ReCaptchaFactory"%>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><s:property value="getText('master.title')" /></title>
-<link href="<s:url value="/assets/css/default.css"/>" rel="stylesheet"
-	type="text/css" />
-</head>
-<body>
-	<!-- HEADER -->
-	<div id="header">
-		<p class="logo">Login Example</p>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<div id="page_title">
+	<p>
+		<s:property value="getText('page.title')" />
+	</p>
+</div>
+<!-- contents -->
+<div id="contents">
+	<!-- place message display -->
+	<div style="color: red">
+		<s:iterator value="arrErrorMessage" status="stt">
+			<s:property value="arrErrorMessage.get(#stt.index)" />
+			<br />
+		</s:iterator>
 	</div>
-	<!-- WRAPPER-->
-	<div id="wrapper">
-		<div id="page_title">
-			<p>
-				<s:property value="getText('page.title')" />
+	<s:property value="successMessage" />
+
+	<!--login form-->
+	<s:form id="login-form" action="login_action">
+		<div class="login_box box2">
+			<p align="left">
+				<s:property value="getText('item.userid')" />
 			</p>
+			<div class="mb10">
+				<s:textfield name="username" size="24" id="username"
+					cssClass="textbox_full" />
+			</div>
+			<p align="left">
+				<s:property value="getText('item.user_pass')" />
+			</p>
+			<div class="mb10">
+				<s:password name="password" size="24" id="password"
+					cssClass="textbox_full" />
+			</div>
+			<p align="left">
+				<a href="forgot-password.html">Forgot password</a>
+			</p>
+			<p align="left">
+				<a href="register.html">Register</a>
+			</p>
+			<p align="left">
+				<s:set name="failCount" value="%{failCount}" />
+				<s:if test="%{#failCount > 4}">
+					<div>
+						<label class="captcha" for="captcha">Captcha</label>
+					</div>
+				</s:if>
+			</p>
+			<div class="mb10">
+				<s:set name="failCount" value="%{failCount}" />
+				<s:if test="%{#failCount > 4}">
+					<!-- CAPTCHA-->
+					<div id="recaptcha" class="captch">
+						<%
+							ReCaptcha c = ReCaptchaFactory.newReCaptcha(
+											"6Lf4W98SAAAAAID1nMaf25I9NoXBP1Uf7VfahP1M",
+											"6Lf4W98SAAAAAHfcJzLW6bf3oINtbE12J1jwIpXD", false);
+									out.print(c.createRecaptchaHtml(null, null));
+						%>
+					</div>
+				</s:if>
+			</div>
+			<br />
+			<div class="mt10" align="right">
+				<s:submit cssClass="button3" value="%{getText('button.login')}" />
+			</div>
 		</div>
-		<!-- contents -->
-		<div id="contents">
-			<!-- place message display -->
-			<div style="color: red">
-		  		<s:iterator value="arrErrorMessage" status="stt">
-		  			<s:property value="arrErrorMessage.get(#stt.index)" />
-		  			<br/>
-		  		</s:iterator>
-  			</div>
-			<s:property value="successMessage" />
-			
-			<!--login form-->
-			<s:form id="login-form" action="login_action">
-				<div class="login_box box2">
-					<p align="left">
-						<s:property value="getText('item.userid')" />
-					</p>
-					<div class="mb10">
-						<s:textfield name="username" size="24" id="username" cssClass="textbox_full"/>
-					</div>
-					<p align="left">
-						<s:property value="getText('item.user_pass')" />
-					</p>
-					<div class="mb10">
-						<s:password name="password" size="24" id="password" cssClass="textbox_full"/>
-					</div>
-					<br />
-					<div class="mt10" align="right">
-						<s:submit cssClass="button3" value="%{getText('button.login')}" />
-					</div>
-				</div>
-			</s:form>
-			<!--end the form-->
-		</div>
-		<!-- /contents -->
-	</div>
-	<!-- /WRAPPER-->
-	<!-- FOOTER -->
-	<div id="footer">
-		<p>Copyright Â© 2012, Alij Lab. All Rights Reserved.</p>
-	</div>
-	<!-- FOOTER -->
-</body>
-</html>
+	</s:form>
+	<!--end the form-->
+</div>
+<!-- /contents -->

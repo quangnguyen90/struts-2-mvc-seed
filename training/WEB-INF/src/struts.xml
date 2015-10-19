@@ -7,10 +7,24 @@
 	<constant name="struts.action.extension" value="html" />
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
+	<!--  ============================================================= -->
+	<!-- struts2-convention-plugin-*.jar : config auto find action/rest api if it is not be declared in struts.xml  -->
+		<constant name="struts.convention.action.suffix" value="Action" />
+		<constant name="struts.convention.package.locators" value="action, actions, rest" />
+	<!-- / End config for action  -->
 	
-	<!-- struts2-convention-plugin-*.jar : plugin auto find action if it is not be declared in struts.xml  -->
-	<constant name="struts.convention.action.suffix" value="Action" />
-	<constant name="struts.convention.package.locators" value="action, actions, struts, struts2" />
+	<!--  ============================================================= -->
+	<!-- Config for rest api  -->
+		<!-- Defines a suffix for action class. Conventionally action class for REST web service has Controller suffix and this suffix will not be included in URL.  -->
+		<!-- <constant name="struts.convention.action.suffix" value="Controller" /> -->
+		<!-- mapAllMatches can be true or false. -->
+		<!-- <constant name="struts.convention.action.mapAllMatches" value="true"/> -->
+		<!-- To support REST web service, struts 2 uses rest-default as parent package.  -->
+		<!-- <constant name="struts.convention.default.parent.package" value="rest-default"/> -->
+		<!-- Locator is the last word of the package within which controller action class resides. In our class, it is rest. -->
+		<!-- <constant name="struts.convention.package.locators" value="rest" />	 -->	
+	<!-- / End config for rest api  -->
+	<!--  ============================================================= -->
 	
 	<!-- Plugin to load multiple language -->
 	<constant name="struts.custom.i18n.resources" value="messages" />
@@ -27,30 +41,72 @@
 	
 	<package name="master_login" namespace="/master" extends="master_tiles">		
 		<interceptors>
-			<!-- LoginMasterInterceptorクラスに対して「login」と名前を定義 -->
+			<!-- LoginMasterInterceptor -->
 			<interceptor name="master_login" class="controllers.interceptors.LoginMasterInterceptor" />
-			<!-- LoginMasterInterceptorとStruts標準のdefaultStackを 足し合わせた新しい「defaultMasterLoginStack」を定義 -->
+			<!-- LoginMasterInterceptor Struts defaultStack defaultMasterLoginStack-->
 			<interceptor-stack name="defaultMasterLoginStack">
 				<interceptor-ref name="master_login" />
 				<interceptor-ref name="fileUpload">
 					<param name="maximumSize">2097152</param>
-					<param name="allowedTypes">image/png</param>
+					<param name="allowedTypes">image/png,image/jpeg,image/jpg</param>
 				</interceptor-ref>
 				<interceptor-ref name="defaultStack" />				
 			</interceptor-stack>
 		</interceptors>
-		<!-- デフォルトのinterceptorを、defaultMasterLoginStackに設定 -->
+		<!--interceptor defaultMasterLoginStack-->
 		<default-interceptor-ref name="defaultMasterLoginStack" />
-		<!-- 「return "login"」「return "mainmenu"」に対して、固定のＵＲＬを定義 -->		
+		<!-- 「return "login"」「return "mainmenu"」 -->		
 		
 		<global-results>
-			<!-- <result name="master_login" type="tiles">tiles.A_3</result> -->
-			<result name="master_login">/views/auth/login.jsp</result>
+			<!-- <result name="master_login">/views/auth/login.jsp</result> -->
+			<result name="master_login" type="tiles">tiles.login</result>
 		</global-results>
-		<!-- actionタグは記述不要 -->
+		<!-- action-->
 	</package>
 	
 	<package name="home_page" namespace="/welcome" extends="master_tiles">
 		<action name="home" class="models.actions.home.HomeAction" method="welcome"></action>
+		<action name="about" class="models.actions.home.HomeAction" method="about"></action>
+	</package>
+	
+	<package name="auth" namespace="/auth" extends="master_tiles">
+	    <action name="logout" class="models.actions.auth.LogoutAction" method="logout"></action>
+	    <action name="change-password" class="models.actions.auth.ChangePasswordAction" method="changePassword"></action>
+		<action name="change-password-action" class="models.actions.auth.ChangePasswordAction" method="changePasswordAction"></action>
+		<action name="forgot-password" class="models.actions.auth.ForgotPasswordAction" method="forgotPassword"></action>
+		<action name="forgot-password-action" class="models.actions.auth.ForgotPasswordAction" method="forgotPasswordAction"></action>
+		<action name="reset-password-action" class="models.actions.auth.ForgotPasswordAction" method="resetPasswordAction"></action>
+		<action name="register" class="models.actions.auth.RegisterAccountAction" method="register"></action>
+		<action name="register-action" class="models.actions.auth.RegisterAccountAction" method="registerAction">
+		    <!-- <interceptor-ref name="fileUpload">  
+                <param name="maximumSize">2097152</param>  
+                <param name="allowedTypes">  
+                    image/png,image/jpeg,image/jpg  
+                </param>  
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref> -->
+		</action>
+		<action name="profile" class="models.actions.auth.UpdateAccountAction" method="profile"></action>
+		<action name="profile-action" class="models.actions.auth.UpdateAccountAction" method="profileAction"></action>
+	</package>
+	
+	<package name="authAdmin" namespace="/authAdmin" extends="master_tiles">
+	   <action name="list-user" class="models.actions.authAdmin.ListUserAction" method="listUser"></action>
+	   <action name="create-user" class="models.actions.authAdmin.CreateUserAction" method="createUser"></action>
+	   <action name="create-user-action" class="models.actions.authAdmin.CreateUserAction" method="createUserAction"></action>
+	   <!-- <action name="edit-user" class="models.actions.authAdmin.EditUserAction" method="editUser"></action> -->
+	   <action name="edit-user-action" class="models.actions.authAdmin.EditUserAction" method="editUserAction"></action>
+	</package>
+	
+	<package name="newsAdmin" namespace="/newsAdmin" extends="master_tiles">
+	   <action name="list-news" class="models.actions.newsAdmin.ListNewsAction" method="listNews"></action>
+	   <action name="create-news" class="models.actions.newsAdmin.CreateNewsAction" method="createNews"></action>
+	   <action name="create-news-action" class="models.actions.newsAdmin.CreateNewsAction" method="createNewsAction"></action>
+	   <!-- <action name="edit-news" class="models.actions.newsAdmin.EditNewsAction" method="editNews"></action> -->
+	   <action name="edit-news-action" class="models.actions.newsAdmin.EditNewsAction" method="editNewsAction"></action>
+	</package>
+	
+	<package name="rest-api" namespace="/restApi" extends="json-default">
+	    <action name="getDistrictList" class="services.rest.DistrictController" method="getDistrictList"><result type="json"/></action>
 	</package>
 </struts>

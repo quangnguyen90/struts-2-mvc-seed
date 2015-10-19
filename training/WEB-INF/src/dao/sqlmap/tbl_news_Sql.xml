@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.NewsMapper">
+
+	<resultMap type="dao.domain.News" id="newsResult">
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="brief" property="brief" />
+		<result column="content" property="content" />
+		<result column="created" property="created" />
+		<result column="updated" property="updated" />
+		<result column="status" property="status" />
+		<result column="avatar" property="avatar" />
+	</resultMap>
+	
+	<select id="select" parameterType="dao.domain.News" resultType="News" resultMap="newsResult">
+		SELECT *
+		FROM news 
+		WHERE status = 1
+    </select>
+
+    <insert id="insertNews" parameterType="dao.domain.News">
+		INSERT INTO
+		news(title, brief, content,
+		status, avatar, created, updated)
+		VALUES
+		(#{title},#{brief},#{content},1,#{avatar},#{created},#{updated})
+    </insert>
+
+    <update id="updateNews" parameterType="dao.domain.News">
+		UPDATE news
+	    SET title = #{title},brief = #{brief},content = #{content},avatar = #{avatar}
+	    WHERE id = #{id}
+    </update>
+
+    <select id="getNewsById" parameterType="int" resultType="News" resultMap="newsResult">
+		SELECT *
+		FROM news 
+		WHERE id = #{id}
+    </select>
+
+    <delete id="deleteNews" parameterType="int" >
+		DELETE FROM news WHERE id = #{id}
+    </delete>
+
+    <select id="getAllNews" parameterType="map" resultType="News" resultMap="newsResult">
+		SELECT *
+		FROM news 
+		ORDER BY id
+		LIMIT #{limit} OFFSET #{offset}
+    </select>
+	
+    <select id="countForSearch" resultType="int">
+		SELECT count(*)
+		FROM news
+	</select>
+	
+    <update id="enableNews" parameterType="int">
+		UPDATE news
+	    SET status = 1
+	    WHERE id = #{id}
+    </update>
+
+    <update id="disableNews" parameterType="int">
+		UPDATE news
+	    SET status = 0
+	    WHERE id = #{id}
+    </update>
+</mapper>

@@ -8,11 +8,12 @@ import org.apache.struts2.convention.annotation.Results;
 import common.base.BaseAction;
 
 @Results({
-	 @Result(name="success", type="tiles" ,location="tiles.welcome"),
-	 @Result(name="errorEx" ,  type="tiles" ,location="tiles.error")
+	 @Result(name="home", type="tiles" ,location="tiles.welcome"),
+	 @Result(name="about", type="tiles" ,location="tiles.about"),
+	 @Result(name="error" ,  type="tiles" ,location="tiles.error")
 	})
 @ParentPackage("master_tiles")
-public class HomeAction extends BaseAction {
+public class HomeAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +23,17 @@ public class HomeAction extends BaseAction {
 	public HomeAction() {
 		
 	}
-	@Action("/welcome/home")
+	@Action("/home")
 	public String welcome() {
 		setMessage(getText("Welcome to Strut 2 mvc"));
-		return "success";
+		return "home";
 	}	
+	
+	@Action("/about")
+	public String about() {
+		return "about";
+	}	
+	
 	public String getMessage() {
 		return message;
 	}

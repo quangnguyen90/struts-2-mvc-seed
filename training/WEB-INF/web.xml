@@ -14,10 +14,13 @@
 
 	<filter>
 		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+		<!-- OLD VERSION & deprecated since Struts 2.1.3 -->
+		<!-- <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class> -->
+		<!-- NEW VERSION, struts >= 2.1.3 -->
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter </filter-class> 
 		<init-param>
 			<param-name>actionPackages</param-name>
-			<param-value>admin.action</param-value>
+			<param-value>models.actions, services.rest</param-value>
 		</init-param>
 	</filter>
 
@@ -44,10 +47,6 @@
 		<welcome-file>index.htm</welcome-file>
 	</welcome-file-list>
 
-	<!--  <welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list> -->
-
 	<!-- <security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Deny Direct Access</web-resource-name>
@@ -59,13 +58,12 @@
 		</auth-constraint>
 	</security-constraint> -->
 	
-	<!-- Session time out tu log out -->
-	<session-config>
+	<!-- Session time out from log out -->
+	<!-- <session-config>
 		<session-timeout>30</session-timeout>
-	</session-config>
+	</session-config> -->
 	
 	<security-role>
 		<role-name>Denied</role-name>
 	</security-role>
-
 </web-app>

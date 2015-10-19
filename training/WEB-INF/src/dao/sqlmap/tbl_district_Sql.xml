@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.DistrictMapper">
+	<resultMap type="dao.domain.District" id="districtResult">
+		<result column="districtId" property="districtId" />
+		<result column="districtName" property="districtName" />
+		<result column="cityId" property="cityId" />
+		<result column="status" property="status" />
+	</resultMap>
+	<!-- ===================================================================================================== -->
+	
+	<!--SELECT DISTRICT LIST -->
+	<select id="selectDistrictFromCity" resultType="Integer" resultMap="districtResult">
+		SELECT districtId, districtName, cityId, status
+		FROM
+		district
+		WHERE cityId = #{cityId}
+	</select>
+	<!--END SELECT DISTRICT LIST -->
+
+</mapper>

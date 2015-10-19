@@ -5,18 +5,72 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-
+	<!-- BASE LAYOUT -->
 	<definition name="baseLayout" template="/views/template/baselayout.jsp">
 		<put-attribute name="master_header" value="/views/template/template_header.jsp" />
 		<put-attribute name="master_menu_main" value="/views/template/main_menu.jsp" />
 		<put-attribute name="master_content" value="" />
 		<put-attribute name="master_footer" value="/views/template/template_footer.jsp" />
 	</definition>
-
+	<!-- ========================================================================================== -->
+	<!-- COMMON -->
 	<definition name="tiles.welcome" extends="baseLayout">
 		<put-attribute name="master_content" value="/views/template/welcome.jsp" />
+	</definition>
+	<definition name="tiles.about" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/template/about.jsp" />
 	</definition>
 	<definition name="tiles.error" extends="baseLayout">
 		<put-attribute name="master_content" value="/views/auth/error.jsp" />
 	</definition>
+	<!-- ========================================================================================== -->
+	<!-- USER -->
+	<definition name="tiles.create_user" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/authAdmin/createUser.jsp" />
+	</definition>
+	<definition name="tiles.edit_user" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/authAdmin/editUser.jsp" />
+	</definition>
+	<definition name="tiles.list_user" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/authAdmin/listUser.jsp" />
+	</definition>
+	<!-- ========================================================================================== -->
+	<!-- NEWS ADMIN -->
+	<definition name="tiles.create_news" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/newsAdmin/createNews.jsp" />
+	</definition>
+	<definition name="tiles.edit_news" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/newsAdmin/editNews.jsp" />
+	</definition>
+	<definition name="tiles.list_news" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/newsAdmin/listNews.jsp" />
+	</definition>
+	<!-- ========================================================================================== -->
+	<!-- AUTH LAYOUT -->
+	<definition name="authLayout" template="/views/auth/authLayout.jsp">
+		<put-attribute name="auth_header" value="/views/auth/authHeader.jsp" />
+		<put-attribute name="auth_content" value="" />
+		<put-attribute name="auth_footer" value="/views/auth/authFooter.jsp" />
+	</definition>
+	
+	<definition name="tiles.login" extends="authLayout">
+		<put-attribute name="auth_content" value="/views/auth/login.jsp" />
+	</definition>
+	
+	<definition name="tiles.change_password" extends="authLayout">
+		<put-attribute name="auth_content" value="/views/auth/changePassword.jsp" />
+	</definition>
+	
+	<definition name="tiles.forgot_password" extends="authLayout">
+		<put-attribute name="auth_content" value="/views/auth/forgotPassword.jsp" />
+	</definition>
+	
+	<definition name="tiles.register" extends="authLayout">
+		<put-attribute name="auth_content" value="/views/auth/register.jsp" />
+	</definition>
+	
+	<definition name="tiles.profile" extends="authLayout">
+		<put-attribute name="auth_content" value="/views/auth/profile.jsp" />
+	</definition>
+	
 </tiles-definitions>
