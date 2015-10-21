@@ -20,8 +20,12 @@ import common.util.Consts;
 
 public class LoginMasterInterceptor extends AbstractInterceptor implements SessionAware{
 	private static final long serialVersionUID = 1L;
-	public void init() {}
-	public void destroy () {}
+	public void init() {
+		System.out.println("Initializing MyLoggingInterceptor...");
+	}
+	public void destroy () {
+		System.out.println("Destroying MyLoggingInterceptor...");
+	}
 
 	private Map<String, Object> _session;
 	@Override
@@ -41,7 +45,7 @@ public class LoginMasterInterceptor extends AbstractInterceptor implements Sessi
 				return invocation.invoke();
 			} else {
 				if ( invocation.getAction() instanceof ValidationAware){
-					((ValidationAware) invocation.getAction()).addActionError( "userid ã�¾ã�Ÿã�¯ password ã�Œé�•ã�„ã�¾ã�™ã€‚");
+					((ValidationAware) invocation.getAction()).addActionError( "username & password do not match");
 				}
 				return "master_login";
 			}

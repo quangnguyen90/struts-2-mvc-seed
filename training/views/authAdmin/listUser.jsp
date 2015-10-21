@@ -48,11 +48,31 @@
 							<td><s:property value="address" /></td>
 							<td><s:property value="tel" /></td>
 							<td><s:property value="dob" /></td>
-							<td><s:property value="gender" /></td>
+							<s:if test='#user.gender == 1'>
+								<td>Male</td>
+							</s:if>
+							<s:elseif test='#user.gender == 2'>
+								<td>Female</td>
+							</s:elseif>
+							<s:else>
+								<td>Other</td>
+							</s:else>
 							<td><s:property value="cityId" /></td>
 							<td><s:property value="districtId" /></td>
-							<td><s:property value="userType" /></td>
-							<td><s:property value="status" /></td>
+							<s:if test="#user.userType==1">
+								<td>Master admin</td>
+							</s:if>
+							<s:else>
+								<td>Client user</td>
+							</s:else>
+							<%-- <td><s:property value="userType" /></td> --%>
+							<s:if test="#user.status==1">
+								<td>Yes</td>
+							</s:if>
+							<s:else>
+								<td>No</td>
+							</s:else>
+							<%-- <td><s:property value="status" /></td> --%>
 							<td>
 								<a href="edit-user.html?userId=<s:property value="%{username}"/>">Edit</a>
 								<a href="reset-user-password.html?userId=<s:property value="%{username}"/>">Reset</a>

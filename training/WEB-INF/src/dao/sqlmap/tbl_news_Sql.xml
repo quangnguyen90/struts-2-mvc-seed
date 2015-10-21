@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getAllNews" parameterType="map" resultType="News" resultMap="newsResult">
 		SELECT *
 		FROM news 
-		ORDER BY id
+		ORDER BY id DESC
 		LIMIT #{limit} OFFSET #{offset}
     </select>
 	

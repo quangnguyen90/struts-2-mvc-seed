@@ -43,6 +43,9 @@
 				<a href="register.html">Register</a>
 			</p>
 			<p align="left">
+				Default account: admins - 123456
+			</p>
+			<p align="left">
 				<s:set name="failCount" value="%{failCount}" />
 				<s:if test="%{#failCount > 4}">
 					<div>

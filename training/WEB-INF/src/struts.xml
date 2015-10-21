@@ -9,7 +9,7 @@
 	<constant name="struts.devMode" value="true" />
 	<!--  ============================================================= -->
 	<!-- struts2-convention-plugin-*.jar : config auto find action/rest api if it is not be declared in struts.xml  -->
-		<constant name="struts.convention.action.suffix" value="Action" />
+		<constant name="struts.convention.action.suffix" value="Action, Controller" />
 		<constant name="struts.convention.package.locators" value="action, actions, rest" />
 	<!-- / End config for action  -->
 	
@@ -47,7 +47,7 @@
 			<interceptor-stack name="defaultMasterLoginStack">
 				<interceptor-ref name="master_login" />
 				<interceptor-ref name="fileUpload">
-					<param name="maximumSize">2097152</param>
+					<param name="maximumSize">5242880</param>
 					<param name="allowedTypes">image/png,image/jpeg,image/jpg</param>
 				</interceptor-ref>
 				<interceptor-ref name="defaultStack" />				
@@ -63,14 +63,14 @@
 		</global-results>
 		<!-- action-->
 	</package>
-	
+	<!--- PACKAGE: HOME - FORNT END -->
 	<package name="home_page" namespace="/welcome" extends="master_tiles">
 		<action name="home" class="models.actions.home.HomeAction" method="welcome"></action>
 		<action name="about" class="models.actions.home.HomeAction" method="about"></action>
 	</package>
-	
+	<!--- PACKAGE: AUTH - FRONT END -->
 	<package name="auth" namespace="/auth" extends="master_tiles">
-	    <action name="logout" class="models.actions.auth.LogoutAction" method="logout"></action>
+		<action name="logout" class="models.actions.auth.LogoutAction" method="logout"></action>
 	    <action name="change-password" class="models.actions.auth.ChangePasswordAction" method="changePassword"></action>
 		<action name="change-password-action" class="models.actions.auth.ChangePasswordAction" method="changePasswordAction"></action>
 		<action name="forgot-password" class="models.actions.auth.ForgotPasswordAction" method="forgotPassword"></action>
@@ -78,35 +78,80 @@
 		<action name="reset-password-action" class="models.actions.auth.ForgotPasswordAction" method="resetPasswordAction"></action>
 		<action name="register" class="models.actions.auth.RegisterAccountAction" method="register"></action>
 		<action name="register-action" class="models.actions.auth.RegisterAccountAction" method="registerAction">
-		    <!-- <interceptor-ref name="fileUpload">  
-                <param name="maximumSize">2097152</param>  
-                <param name="allowedTypes">  
-                    image/png,image/jpeg,image/jpg  
-                </param>  
+		    <interceptor-ref name="fileUpload">  
+                <param name="maximumSize">5242880</param>   
+                <param name="allowedTypes">
+		            image/png,image/jpeg,image/jpg
+		        </param>
             </interceptor-ref>  
-            <interceptor-ref name="defaultStack"></interceptor-ref> -->
+            <interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		<action name="profile" class="models.actions.auth.UpdateAccountAction" method="profile"></action>
-		<action name="profile-action" class="models.actions.auth.UpdateAccountAction" method="profileAction"></action>
+		<action name="profile-action" class="models.actions.auth.UpdateAccountAction" method="profileAction">
+			<interceptor-ref name="fileUpload">  
+                <param name="maximumSize">5242880</param>   
+                <param name="allowedTypes">
+		            image/png,image/jpeg,image/jpg
+		        </param>
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
 	</package>
-	
+	<!--- PACKAGE: AUTH - BACKEND -->
 	<package name="authAdmin" namespace="/authAdmin" extends="master_tiles">
 	   <action name="list-user" class="models.actions.authAdmin.ListUserAction" method="listUser"></action>
 	   <action name="create-user" class="models.actions.authAdmin.CreateUserAction" method="createUser"></action>
-	   <action name="create-user-action" class="models.actions.authAdmin.CreateUserAction" method="createUserAction"></action>
+	   <action name="create-user-action" class="models.actions.authAdmin.CreateUserAction" method="createUserAction">
+	   		<interceptor-ref name="fileUpload">  
+                <param name="maximumSize">5242880</param>   
+                <param name="allowedTypes">
+		            image/png,image/jpeg,image/jpg
+		        </param>
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+	   </action>
 	   <!-- <action name="edit-user" class="models.actions.authAdmin.EditUserAction" method="editUser"></action> -->
-	   <action name="edit-user-action" class="models.actions.authAdmin.EditUserAction" method="editUserAction"></action>
+	   <action name="edit-user-action" class="models.actions.authAdmin.EditUserAction" method="editUserAction">
+	   		<interceptor-ref name="fileUpload">  
+                <param name="maximumSize">5242880</param>   
+                <param name="allowedTypes">
+		            image/png,image/jpeg,image/jpg
+		        </param>
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+	   </action>
 	</package>
-	
+	<!--- PACKAGE: NEWS - BACKEND -->
 	<package name="newsAdmin" namespace="/newsAdmin" extends="master_tiles">
 	   <action name="list-news" class="models.actions.newsAdmin.ListNewsAction" method="listNews"></action>
 	   <action name="create-news" class="models.actions.newsAdmin.CreateNewsAction" method="createNews"></action>
-	   <action name="create-news-action" class="models.actions.newsAdmin.CreateNewsAction" method="createNewsAction"></action>
+	   <action name="create-news-action" class="models.actions.newsAdmin.CreateNewsAction" method="createNewsAction">
+	   		<interceptor-ref name="fileUpload">  
+                <param name="maximumSize">5242880</param>   
+                <param name="allowedTypes">
+		            image/png,image/jpeg,image/jpg
+		        </param>
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+	   </action>
 	   <!-- <action name="edit-news" class="models.actions.newsAdmin.EditNewsAction" method="editNews"></action> -->
-	   <action name="edit-news-action" class="models.actions.newsAdmin.EditNewsAction" method="editNewsAction"></action>
+	   <action name="edit-news-action" class="models.actions.newsAdmin.EditNewsAction" method="editNewsAction">
+	   		<interceptor-ref name="fileUpload">  
+                <param name="maximumSize">5242880</param>   
+                <param name="allowedTypes">
+		            image/png,image/jpeg,image/jpg
+		        </param>
+            </interceptor-ref>  
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+	   </action>
 	</package>
 	
-	<package name="rest-api" namespace="/restApi" extends="json-default">
-	    <action name="getDistrictList" class="services.rest.DistrictController" method="getDistrictList"><result type="json"/></action>
+	<package name="restApi" namespace="/restApi" extends="json-default">
+	    <action name="getDistrictList" class="services.rest.DistrictController">
+	        <result type="json">
+	        	<param name="excludeNullProperties">true</param>
+        		<param name="noCache">true</param>
+	        </result>
+	    </action>
 	</package>
 </struts>

@@ -217,8 +217,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- END RESET PASSWORD -->
 	
 	<select id="getAllUsers" parameterType="map" resultType="User" resultMap="userResult">
-		SELECT *
-		FROM users 
+		SELECT u.username, u.fullname, u.address, u.email, u.tel, u.dob, u.status, u.userType, u.cityId, u.districtId, u.gender, u.avatar, c.cityName, d.districtName
+		FROM users as u, city as c, district as d
+		WHERE u.cityId = c.cityId AND u.districtId = d.districtId
 		LIMIT #{limit} OFFSET #{offset}
     </select>
 	

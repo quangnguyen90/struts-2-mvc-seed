@@ -30,15 +30,18 @@
 						<li><a href="<s:url action="logout"></s:url>"><s:property
 									value="getText('button.logout')" /></a></li>
 						<li><a href="change-password.html">Change Password</a></li>
-						<li><a href="profile.html">Information - <s:property
-									value="#session.master_user.fullname" /></a></li>
+						<li><a href="profile.html">Information - <s:property value="#session.master_user.fullname" /></a></li>
 					</ul></li>
-				<li class="dropdown"><a href="" class="dropdown-toggle"
-					data-toggle="dropdown">Modules<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="list-user.html">User</a></li>
-						<li><a href="list-news.html">News</a></li>
-					</ul></li>
+				<!-- Only allow admin see modules  -->
+				<s:if test='#session.master_user.username == "admins"'>	
+					<li class="dropdown"><a href="" class="dropdown-toggle"
+						data-toggle="dropdown">Modules<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="list-user.html">User</a></li>
+							<li><a href="list-news.html">News</a></li>
+						</ul>
+					</li>
+				</s:if>
 			</s:if>
 		</ul>
 	</div>

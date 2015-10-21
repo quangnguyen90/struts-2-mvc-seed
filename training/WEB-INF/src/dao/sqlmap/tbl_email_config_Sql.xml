@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper..MailConfigMapper">
+	<resultMap type="dao.domain.MailConfig" id="mailConfigResult">
+		<result column="ID" property="ID" />
+		<result column="From" property="from" />
+		<result column="Password" property="password" />
+		<result column="Subject" property="subject" />
+		<result column="Body" property="body" />
+		<result column="SMTP_Host" property="smtpHost" />
+		<result column="SMTP_Port" property="smtpPort" />
+		<result column="SMTP_Auth" property="smtpAuth" />
+		<result column="SMTP_Socket_Port" property="smtpSocketPort" />	
+		<result column="SMTP_Socket_Class" property="smtpSocketClass" />		
+	</resultMap>
+	
+	<!--SELECT Mail Config BY ID-->
+	<select id="selectMailConfigByID" resultType="String" resultMap="mailConfigResult">
+		SELECT * FROM email_config
+		WHERE ID=#{ID}
+	</select>
+</mapper>

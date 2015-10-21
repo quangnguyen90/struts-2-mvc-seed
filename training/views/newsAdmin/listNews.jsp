@@ -44,7 +44,12 @@
 							<td><s:property value="created" /></td>
 							<td><s:property value="updated" /></td>
 							<td><img src='<s:property value="%{contextPath + avatar}"/>' alt="Responsive image" class="img-responsive img-rounded" style="max-width: 140px; max-height: 140px;"></td>
-							<td><s:property value="%{status}" /></td>
+							<s:if test='#news.status == 1'>
+								<td>On</td>
+							</s:if>
+							<s:if test='#news.status == 0'>
+								<td>Off</td>
+							</s:if>
 							<td>
 								<a href="edit-news.html?newsId=<s:property value="%{id}"/>">Edit</a>
 								<a href="remove-news.html?newsId=<s:property value="%{id}"/>">Remove</a>
