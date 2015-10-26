@@ -32,13 +32,15 @@
 	<constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.configuration.xml.reload" value="true" />
 	<constant name="struts.codebehind.defaultPackage" value="master_login" />
-	
+	<!-- ============================================================================================================ -->
+	<!-- PAKAGE: MASTER TILES -->
 	<package name="master_tiles" namespace="/master" extends="struts-default">
 		<result-types>
 			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 	</package>
-	
+	<!-- ============================================================================================================ -->
+	<!-- PAKAGE: MASTER LOGIN with INTERCEPTOR -->
 	<package name="master_login" namespace="/master" extends="master_tiles">		
 		<interceptors>
 			<!-- LoginMasterInterceptor -->
@@ -63,11 +65,13 @@
 		</global-results>
 		<!-- action-->
 	</package>
+	<!-- ============================================================================================================ -->
 	<!--- PACKAGE: HOME - FORNT END -->
 	<package name="home_page" namespace="/welcome" extends="master_tiles">
 		<action name="home" class="models.actions.home.HomeAction" method="welcome"></action>
 		<action name="about" class="models.actions.home.HomeAction" method="about"></action>
 	</package>
+	<!-- ============================================================================================================ -->
 	<!--- PACKAGE: AUTH - FRONT END -->
 	<package name="auth" namespace="/auth" extends="master_tiles">
 		<action name="logout" class="models.actions.auth.LogoutAction" method="logout"></action>
@@ -97,6 +101,7 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 	</package>
+	<!-- ============================================================================================================ -->
 	<!--- PACKAGE: AUTH - BACKEND -->
 	<package name="authAdmin" namespace="/authAdmin" extends="master_tiles">
 	   <action name="list-user" class="models.actions.authAdmin.ListUserAction" method="listUser"></action>
@@ -121,6 +126,7 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
 	   </action>
 	</package>
+	<!-- ============================================================================================================ -->
 	<!--- PACKAGE: NEWS - BACKEND -->
 	<package name="newsAdmin" namespace="/newsAdmin" extends="master_tiles">
 	   <action name="list-news" class="models.actions.newsAdmin.ListNewsAction" method="listNews"></action>
@@ -145,13 +151,11 @@
             <interceptor-ref name="defaultStack"></interceptor-ref>
 	   </action>
 	</package>
-	
-	<package name="restApi" namespace="/restApi" extends="json-default">
-	    <action name="getDistrictList" class="services.rest.DistrictController">
-	        <result type="json">
-	        	<param name="excludeNullProperties">true</param>
-        		<param name="noCache">true</param>
-	        </result>
+	<!-- ============================================================================================================ -->
+	<!-- API -->
+	<package name="restApi" namespace="/" extends="struts-default, json-default">
+	   <action name="getDistrictList" class="services.rest.DistrictController" method="getDistrictListAction">
+	       <result type="json"/>
 	    </action>
 	</package>
 </struts>

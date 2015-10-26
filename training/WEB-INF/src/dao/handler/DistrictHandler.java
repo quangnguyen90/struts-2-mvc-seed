@@ -4,24 +4,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import common.base.DbConnection;
 
 import dao.domain.District;
 
 public class DistrictHandler {
-	public ArrayList<District> selectDistrictFromCity(int city_id) throws Exception
+	private Connection connection;
+	
+	public DistrictHandler(){
+		try {
+			connection = DbConnection.getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	// SELECT DISTRICT LIST
+	public List<District> selectDistrictFromCity(int city_id) throws Exception
 	{
-		ArrayList<District> districtList = new ArrayList<District>();
-		DbConnection database = new DbConnection();
-		Connection connection = database.getConnection();
+		List<District> districtList = new ArrayList<District>();
+		// QUERY STRING
+		String query = "SELECT districtId, districtName, cityId, status FROM district WHERE cityId = "+city_id ;
 		
 		try {
-			PreparedStatement stmt = connection.prepareStatement("SELECT districtId, districtName, cityId, status FROM district WHERE cityId = "+city_id);
-
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
+			Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+			while (rs.next() != false) {
 				// result = rs.getString( 1 );
 				District district = new District();
 				district.setDistrictId(rs.getInt("districtId"));
@@ -32,16 +44,8 @@ public class DistrictHandler {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
-
-		if (connection != null) {
-			try {
-				connection.close();
-				// Log.info( "Database connection terminated" );
-			} catch (Exception e) {
-			}
-		}
-		
 		return districtList;
 	}
 }

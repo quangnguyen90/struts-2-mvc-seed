@@ -4,23 +4,20 @@ function Auth() {
 }
 // function
 Auth.prototype = {
-	loadDistricts : function(value1) {
+	loadDistricts : function(cityId) {
 		$("#district").find('option').remove().end();
 		$.ajax({
 			type : 'GET',
-			url : '/training/getDistrictList/' + value1,
-			/* data: { city_ID: value1 }, */
-			contentType : "application/json; charset=utf-8",
-			dataType : 'json',
-			success : function(data) {
-				/*for ( var i = 0; i < data.district.length; i++) {
-					var districtID = data.district[i].districtID;
-					$("#district").append(
-							"<option value=" + data.district[i].districtid
-									+ ">" + data.district[i].districtName
-									+ "</option>");
-				}*/
-				alert(data);
+			headers:{
+				Accept: "application/json; charset=utf-8","Content-type":"application/json; charset=utf-8",
+			},
+			url : 'getDistrictList.html',
+			data: { cityId: cityId },
+			success : function(data, status) {
+				for ( var i = 0; i < data.records.length; i++) {
+					var districtID = data.records[i].districtId;
+					$("#district").append("<option value=" + data.records[i].districtId + ">" + data.records[i].districtName + "</option>");
+				}
 			},
 			error : function(er) {
 				alert("Something wrong while getting district");

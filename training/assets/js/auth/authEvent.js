@@ -1,8 +1,8 @@
 $("#dob").datepicker({dateFormat:'dd/mm/yy'});
 $("#dob").datepicker("option", "dateFormat", "dd/mm/yy");
 
-function loadDistricts(value){
-	authIs.loadDistricts(value);
+function loadDistricts(cityId){
+	authIs.loadDistricts(cityId);
 }
 
 //======================================================================================================================

@@ -86,6 +86,7 @@
 			headerKey="0" headerValue="--" 
 			list="city"
 			name="citySelected"
+			onchange="loadDistricts(this.value);"
 			listKey="cityId"
 			listValue="cityName">
 		</s:select>
@@ -95,7 +96,7 @@
 <div class="form-group">
 	<label for="edit-user-district" class="col-sm-2 control-label">District</label>
 	<div class="col-sm-10">
-		<s:select id="user-district" style="height: 33px" class="form-control"
+		<s:select id="district" style="height: 33px" class="form-control"
 			headerKey="0" headerValue="--" 
 			list="district"
 			name="districtSelected"

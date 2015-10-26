@@ -83,6 +83,7 @@
 					headerKey="0" headerValue="--" 
 					list="city"
 					name="citySelected"
+					onchange="loadDistricts(this.value);"
 					listKey="cityId"
 					listValue="cityName" 
 					>
@@ -121,13 +122,6 @@
 	<!--end the form-->
 </div>
 <!-- /contents -->
-
-<!-- CHOOSE BIRTHDAY -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
-</script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-
 <!-- Javascript -->
 <script type="text/javascript"
 	src="<s:url value="/assets/js/auth/auth.js"/>"></script>

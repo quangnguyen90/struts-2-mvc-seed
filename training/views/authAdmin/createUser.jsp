@@ -72,6 +72,7 @@
 			headerKey="0" headerValue="--" 
 			list="city"
 			name="citySelected"
+			onchange="loadDistricts(this.value);"
 			listKey="cityId"
 			listValue="cityName">
 		</s:select>
@@ -81,7 +82,7 @@
 <div class="form-group">
 	<label for="user-district" class="col-sm-2 control-label">District</label>
 	<div class="col-sm-10">
-		<s:select id="user-district" style="height: 33px" class="form-control"
+		<s:select id="district" style="height: 33px" class="form-control"
 			headerKey="0" headerValue="--" 
 			list="district"
 			name="districtSelected"
@@ -117,12 +118,12 @@
 <!--end the form-->
 </div>
 <!-- /contents -->
-
 <!-- CHOOSE BIRTHDAY -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
 </script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
 
 <!-- Javascript -->
 <script type="text/javascript"

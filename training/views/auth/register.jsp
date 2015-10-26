@@ -94,9 +94,7 @@
 				City
 			</p>
 			<div class="mb10">
-				<!-- <s:textfield name="city" size="24" id="city"
-					cssClass="textbox_full" /> -->
-				<%-- <s:select id="city" style="height: 22px" cssClass="textbox_full" class="city"
+				<s:select id="city" style="height: 22px" cssClass="textbox_full" class="city"
 					headerKey="0" headerValue="--" 
 					list="city"
 					name="citySelected"
@@ -104,15 +102,15 @@
 					listKey="cityId"
 					listValue="cityName" 
 					>
-				</s:select> --%>
-				<s:select id="city" style="height: 22px" cssClass="textbox_full" class="city"
+				</s:select> 
+				<!-- <s:select id="city" style="height: 22px" cssClass="textbox_full" class="city"
 					headerKey="0" headerValue="--" 
 					list="city"
 					name="citySelected"
 					listKey="cityId"
 					listValue="cityName" 
 					>
-				</s:select>
+				</s:select> -->
 			</div>
 			
 			<p align="left">
@@ -154,14 +152,6 @@
 	<!--end the form-->
 </div>
 <!-- /contents -->
-
-<!-- CHOOSE BIRTHDAY -->
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
-</script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-
 <!-- Javascript -->
 <script type="text/javascript"
 	src="<s:url value="/assets/js/auth/auth.js"/>"></script>
