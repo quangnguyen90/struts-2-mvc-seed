@@ -1,5 +1,5 @@
 # struts-2-mvc-seed
-A seed for websites which are based on apache struts 2 mvc
+A seed for websites which are based on apache struts 2 mvc, tiles, mybatis
 
 ### Ref: 
 * http://o7planning.org/web/fe/default/vi/document/5857/huong-dan-lap-trinh-struts2-cho-nguoi-moi-bat-dau
