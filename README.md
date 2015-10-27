@@ -17,5 +17,5 @@ A seed for websites which are based on apache struts 2 mvc, tiles, mybatis
 If you like it and want to contribute, just folk my repo and pull your requests.
 
 ### Version
-0.1
+0.0.1
 
