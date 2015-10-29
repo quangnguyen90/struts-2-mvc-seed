@@ -64,11 +64,11 @@ public class ListUserAction extends BaseAction implements ModelDriven<User> {
 			for (int y = 0; y < numberPage; y++) {
 				lstPage.add("" + (y + 1));
 			}
+			return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ERROR;
 		}
-		return SUCCESS;
 	}
 	
 	// ======================================================================================================

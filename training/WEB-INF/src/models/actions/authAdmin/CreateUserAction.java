@@ -86,8 +86,8 @@ public class CreateUserAction extends BaseAction implements ModelDriven<User> {
 			catch (UnsupportedEncodingException a) {
 				a.printStackTrace();
 			}
-			user.setCityId(Integer.parseInt(getCitySelected()));
-			user.setDistrictId(Integer.parseInt(getDistrictSelected()));
+			user.setCity_Id(Integer.parseInt(getCitySelected()));
+			user.setDistrict_Id(Integer.parseInt(getDistrictSelected()));
 			user.setGender(Integer.parseInt(getGenderSelected()));
 			
 			// Check username, fullname, gender, email, telephone, city, district, address

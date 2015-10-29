@@ -15,7 +15,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -24,7 +23,6 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.opensymphony.xwork2.ModelDriven;
 import common.base.BaseAction;
@@ -107,8 +105,8 @@ public class RegisterAccountAction extends BaseAction implements ModelDriven<Use
 			catch (UnsupportedEncodingException a) {
 				a.printStackTrace();
 			}
-			user.setCityId(Integer.parseInt(getCitySelected()));
-			user.setDistrictId(Integer.parseInt(getDistrictSelected()));
+			user.setCity_Id(Integer.parseInt(getCitySelected()));
+			user.setDistrict_Id(Integer.parseInt(getDistrictSelected()));
 			user.setGender(Integer.parseInt(getGenderSelected()));
 			
 			// Check username, password, confirm password, fullname, gender, email, telephone, city, district, address

@@ -101,7 +101,7 @@ public class LoginAction extends BaseAction implements ModelDriven<User> {
 				}
 				failCount++;
 				session.setAttribute("failCount", failCount);
-				showError(getText("User is not exit"));
+				showError(getText("User is not exist"));
 				return ERROR;
 			}
 			user.setUsername(userResult.getUsername());
@@ -109,7 +109,7 @@ public class LoginAction extends BaseAction implements ModelDriven<User> {
 			setCurrentUser(userResult);
 			session.setAttribute("failCount", null);
 			setMessage(getText("welcome ") + user.getFullname());
-			// Later, load top 8 news here
+			
 			return SUCCESS;
 		} catch (Exception e) {
 			log.error(e.getMessage());

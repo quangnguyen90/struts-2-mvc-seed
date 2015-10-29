@@ -60,12 +60,12 @@ public class EditUserAction extends BaseAction implements ModelDriven<User> {
 				showError("Error when getting profile info. Refresh & try again");
 				// Get City, District, Gender List
 				getCityList();
-				getDistrictList(user.getCityId());
+				getDistrictList(user.getCity_Id());
 				createGenderList();
 				
 				// Show City, District, Gender by User
-				citySelected = String.valueOf(user.getCityId());
-				districtSelected = String.valueOf(user.getDistrictId());
+				citySelected = String.valueOf(user.getCity_Id());
+				districtSelected = String.valueOf(user.getDistrict_Id());
 				genderSelected = user.getGender()+"";
 				
 				return ERROR;
@@ -73,12 +73,12 @@ public class EditUserAction extends BaseAction implements ModelDriven<User> {
 						
 			// Get City, District, Gender List
 			getCityList();
-			getDistrictList(user.getCityId());
+			getDistrictList(user.getCity_Id());
 			createGenderList();
 			
 			// Show City, District, Gender by User
-			citySelected = String.valueOf(user.getCityId());
-			districtSelected = String.valueOf(user.getDistrictId());
+			citySelected = String.valueOf(user.getCity_Id());
+			districtSelected = String.valueOf(user.getDistrict_Id());
 			genderSelected = user.getGender()+"";
 			
 			HttpServletRequest request = ServletActionContext.getRequest();
@@ -99,12 +99,12 @@ public class EditUserAction extends BaseAction implements ModelDriven<User> {
 				showError("Error while showing birthday");
 				// Get City, District, Gender List
 				getCityList();
-				getDistrictList(user.getCityId());
+				getDistrictList(user.getCity_Id());
 				createGenderList();
 				
 				// Show City, District, Gender by User
-				citySelected = String.valueOf(user.getCityId());
-				districtSelected = String.valueOf(user.getDistrictId());
+				citySelected = String.valueOf(user.getCity_Id());
+				districtSelected = String.valueOf(user.getDistrict_Id());
 				genderSelected = user.getGender()+"";
 				
 				return ERROR;
@@ -117,12 +117,12 @@ public class EditUserAction extends BaseAction implements ModelDriven<User> {
 			showError("Error while showing account info. Try again");
 			// Get City, District, Gender List
 			getCityList();
-			getDistrictList(user.getCityId());
+			getDistrictList(user.getCity_Id());
 			createGenderList();
 			
 			// Show City, District, Gender by User
-			citySelected = String.valueOf(user.getCityId());
-			districtSelected = String.valueOf(user.getDistrictId());
+			citySelected = String.valueOf(user.getCity_Id());
+			districtSelected = String.valueOf(user.getDistrict_Id());
 			genderSelected = user.getGender()+"";
 			return ERROR;
 		}
@@ -196,8 +196,8 @@ public class EditUserAction extends BaseAction implements ModelDriven<User> {
 				user.setAvatar(userResult.getAvatar());
 			}
 			
-			user.setCityId(Integer.parseInt(getCitySelected()));
-			user.setDistrictId(Integer.parseInt(getDistrictSelected()));
+			user.setCity_Id(Integer.parseInt(getCitySelected()));
+			user.setDistrict_Id(Integer.parseInt(getDistrictSelected()));
 			user.setGender(Integer.parseInt(getGenderSelected()));
 			// =======================================================================================
 			// UPDATE USER
@@ -220,12 +220,12 @@ public class EditUserAction extends BaseAction implements ModelDriven<User> {
 				//setUserId(this.getUserId());
 				// Get City, District, Gender list
 				getCityList();
-				getDistrictList(userDB.getCityId());
+				getDistrictList(userDB.getCity_Id());
 				createGenderList();
 				
 				//Get City, District, Gender of User
-				citySelected = String.valueOf(userDB.getCityId());
-				districtSelected = String.valueOf(userDB.getDistrictId());
+				citySelected = String.valueOf(userDB.getCity_Id());
+				districtSelected = String.valueOf(userDB.getDistrict_Id());
 				genderSelected = userDB.getGender()+"";
 				
 				HttpServletRequest request = ServletActionContext.getRequest();

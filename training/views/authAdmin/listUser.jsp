@@ -57,8 +57,8 @@
 							<s:else>
 								<td>Other</td>
 							</s:else>
-							<td><s:property value="cityId" /></td>
-							<td><s:property value="districtId" /></td>
+							<td><s:property value="%{cityObject.cityName}" /></td>
+							<td><s:property value="%{districtObject.districtName}" /></td>
 							<s:if test="#user.userType==1">
 								<td>Master admin</td>
 							</s:if>

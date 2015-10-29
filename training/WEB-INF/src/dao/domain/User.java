@@ -1,8 +1,6 @@
 package dao.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 
@@ -11,8 +9,22 @@ public class User {
 	/*//////////////////// This area is to define members ////////////////////////////*/
 	private String avatar,newPassword, username,password,fullname,address,email, tel, temporaryPassword, confirmPassword, confirmNewPassword;
 	private Date dob;
-	private int status = 1, userType, cityId, districtId, gender;
+	private int status = 1, userType, gender;
+	private int city_Id; 
+	private int district_Id ;
 	
+	public int getCity_Id() {
+		return city_Id;
+	}
+	public void setCity_Id(int city_Id) {
+		this.city_Id = city_Id;
+	}
+	public int getDistrict_Id() {
+		return district_Id;
+	}
+	public void setDistrict_Id(int district_Id) {
+		this.district_Id = district_Id;
+	}
 	public String getAvatar() {
 		return avatar;
 	}
@@ -93,18 +105,7 @@ public class User {
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
-	public int getCityId() {
-		return cityId;
-	}
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
-	}
-	public int getDistrictId() {
-		return districtId;
-	}
-	public void setDistrictId(int districtId) {
-		this.districtId = districtId;
-	}
+	
 	public int getGender() {
 		return gender;
 	}
@@ -119,21 +120,21 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 	
-	/*private City city; 
-	private District district;
+	private City cityObject; 
+	private District districtObject;
 	
-	public City getCity() {
-		return city;
+	public City getCityObject() {
+		return cityObject;
 	}
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityObject(City cityObject) {
+		this.cityObject = cityObject;
 	}
-	public District getDistrict() {
-		return district;
+	public District getDistrictObject() {
+		return districtObject;
 	}
-	public void setDistrict(District district) {
-		this.district = district;
-	}*/
+	public void setDistrictObject(District districtObject) {
+		this.districtObject = districtObject;
+	}
 
 	
 }

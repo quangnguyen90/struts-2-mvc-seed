@@ -14,18 +14,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="dob" property="dob" />
 		<result column="status" property="status" />
 		<result column="userType" property="userType" />
-		<result column="cityId" property="cityId" />
-		<result column="districtId" property="districtId" />
 		<result column="temporaryPassword" property="temporaryPassword" />
 		<result column="gender" property="gender" />
 		<result column="avatar" property="avatar" />
-	
-		<!-- <association property="city" column="cityId"  javaType="City"  select="selectCity" />  
-		<association property="district" column="disitrictId" javaType="District"  select="selectDistrict" />
-		 -->
+		<result column="cityId" property="city_Id" />
+		<result column="districtId" property="district_Id" />
+		<!-- ONE TO ONE RELATIIONSHIP -->
+		<association property='cityObject' resultMap='cityResult'/>
+		<association property='districtObject' resultMap='districtResult'/>
 	</resultMap>
 	
-	<!-- <resultMap type="dao.domain.City" id="cityResult">
+	<resultMap type="dao.domain.City" id="cityResult">
 		<result column="cityId" property="cityId" />
 		<result column="cityName" property="cityName" />
 		<result column="status" property="status" />
@@ -36,40 +35,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="districtName" property="districtName" />
 		<result column="cityId" property="cityId" />
 		<result column="status" property="status" />
-	</resultMap> -->
+	</resultMap>
 	<!-- ========================================================= -->
 	<!-- ParameterType Rule: - insert: user - update: user - delete: string, int - select: user (more parameters), string, int (1 parameter), empty (if select all, no condition) -->
 	<!-- resultType Rule: - insert: No - update: No - delete: No - select: Yes -->
 	<!-- resultMap Rule: - insert: No - update: No - delete: No - select: Yes -->
 
-	<!-- <select id="selectCity" parameterType="int" resultType="City">    
-		SELECT u.username, c.cityId, c.cityName, c.status 
-		FROM City c 
-			LEFT JOIN Users u ON c.cityId = u.cityId
-		WHERE u.username = #{username}
-	</select>
-	
-	<select id="selectDistrict" parameterType="int" resultType="District">    
-		SELECT u.username, d.districtId, d.districtName, d.status 
-		FROM District d 
-			LEFT JOIN Users u ON d.districtId = u.districtId
-		WHERE u.username = #{username}
-	</select> -->
-
 	<!-- LOGIN -->
 	<select id="select" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
-		SELECT *
-		FROM users 
-		WHERE username = #{username} AND password = #{password}
+		SELECT u.username, u.password, u.fullname, u.address, u.email, u.tel, u.dob, u.status, u.userType, u.gender, u.avatar, c.cityId, d.districtId, c.cityName, d.districtName
+		FROM users u
+			LEFT OUTER JOIN city c 
+				ON u.cityId = c.cityId
+			LEFT  OUTER JOIN district d 
+				ON u.districtId = d.districtId
+		WHERE u.username = #{username} AND u.password = #{password}
     </select>
     <!--END LOGIN -->
     
+    <!--CLIENT LOGIN -->
     <select id="login" parameterType="dao.domain.User" resultType="User" resultMap="userResult">
-		SELECT username, password, fullname, address, email, tel, dob, status, userType, cityId, districtId, gender, avatar
-		FROM users
-		WHERE username = #{username} AND password = #{password} AND userType = 2
+		SELECT u.username,u.password, u.fullname, u.address, u.email, u.tel, u.dob, u.status, u.userType, u.gender, u.avatar, c.cityId, d.districtId, c.cityName, d.districtName
+		FROM users u
+			LEFT OUTER JOIN city c 
+				ON u.cityId = c.cityId
+			LEFT  OUTER JOIN district d 
+				ON u.districtId = d.districtId
+		WHERE WHERE u.username = #{username} AND u.password = #{password} AND u.userType = 2
     </select>
-    <!--END LOGIN -->
+    <!--END CLIENT LOGIN -->
     <!-- ========================================================= -->
 
     <!-- GET OLD PASSWORD -->
@@ -90,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		districtId, cityId, tel, avatar)
 		VALUES
 		(#{username},#{email},#{password},#{userType},1,#{gender},#{dob},#{fullname},
-		#{address},#{districtId},#{cityId},#{tel},#{avatar})
+		#{address},#{district_Id},#{city_Id},#{tel},#{avatar})
 	</insert>
 	<!-- END REGISTER USER -->
 	<!-- ========================================================= -->
@@ -142,8 +136,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- GET USER BY USER ID  -->
 	<select id="getUserById" parameterType="String" resultType="User" resultMap="userResult">
-	    SELECT * 
-	    FROM users
+	    SELECT u.username, u.fullname, u.address, u.email, u.tel, u.dob, u.status, u.userType, u.gender, u.avatar, c.cityId, d.districtId, c.cityName, d.districtName
+		FROM users u
+			LEFT OUTER JOIN city c 
+				ON u.cityId = c.cityId
+			LEFT  OUTER JOIN district d 
+				ON u.districtId = d.districtId
 		WHERE username =#{username}
 	</select>
 	<!-- END GET USER BY USER ID -->
@@ -173,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    UPDATE users
 	    SET gender = #{gender}, email = #{email},
 	    dob = #{dob}, fullname = #{fullname}, address = #{address},
-		districtId = #{districtId}, cityId = #{cityId}, tel = #{tel}, avatar = #{avatar} WHERE username = #{username} 
+		districtId = #{district_Id}, cityId = #{city_Id}, tel = #{tel}, avatar = #{avatar} WHERE username = #{username} 
 	</update>
 	<!--END UPDATE USER-->
 	<!-- ========================================================= -->
@@ -250,9 +248,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllUsers" parameterType="map" resultType="User" resultMap="userResult">
 		SELECT u.username, u.fullname, u.address, u.email, u.tel, u.dob, u.status, u.userType, u.gender, u.avatar, c.cityId, d.districtId, c.cityName, d.districtName
 		FROM users u
-			LEFT JOIN city c 
+			LEFT OUTER JOIN city c 
 				ON u.cityId = c.cityId
-			LEFT JOIN district d 
+			LEFT  OUTER JOIN district d 
 				ON u.districtId = d.districtId
 		LIMIT #{limit} 
 		OFFSET #{offset}
