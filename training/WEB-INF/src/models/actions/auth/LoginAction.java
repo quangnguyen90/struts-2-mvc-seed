@@ -29,7 +29,7 @@ import dao.domain.News;
 import dao.mapper.NewsMapper;
 
 @Results({
-		@Result(name = "success", type = "tiles", location = "tiles.welcome"),
+		@Result(name = "success", type = "redirectAction", location = "home.html"),
 		@Result(name = "loginLoad", type = "tiles", location = "tiles.login"),
 		@Result(name = "error", type = "tiles", location = "tiles.login"),
 		@Result(name = "listUser", type = "redirectAction", location = "list-user.html"),
@@ -44,77 +44,80 @@ public class LoginAction extends BaseAction implements ModelDriven<User> {
 	private String message, idmessage;
 	private int failCount;
 	private String username;
-	private int sellpr;
-	public int amountTemp1;
-
-	// ======================================================================================================
-
-	public int getAmountTemp1() {
-		return amountTemp1;
-	}
-
-	public void setAmountTemp1(int amountTemp1) {
-		this.amountTemp1 = amountTemp1;
-	}
-
-	public int getSellpr() {
-		return sellpr;
-	}
-
-	public void setSellpr(int sellpr) {
-		this.sellpr = sellpr;
-	}
-
-	public int getFailCount() {
-		return failCount;
-	}
-
-	public void setFailCount(int failCount) {
-		this.failCount = failCount;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getIdmessage() {
-		return idmessage;
-	}
-
-	public void setIdmessage(String idmessage) {
-		this.idmessage = idmessage;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public LoginAction() {
-
-	}
-
-	// ======================================================================================================
-	// GET MODEL FOR CONSUMER
-	@Override
-	public User getModel() {
-		return user;
-	}
-
+	
 	// ======================================================================================================
 	// LOAD LOGIN FORM
 	@Action("/login")
 	public String login() {
 		return "loginLoad";
 	}
+	
+	// ======================================================================================================
+	// LOGIN USER
+	/**
+	 * execute action login,check user exist?
+	 * 
+	 * @param null
+	 * @return success or error (String)
+	 * 
+	 */
+	@Action("/login_action")
+	public String execute() {
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		String type = ServletActionContext.getRequest().getMethod();
 
+		if (type.toUpperCase() == "GET") {
+			return "successCx";
+		}
+
+		try {
+			user.setPassword(ValidateUtil.MD5Encryption(user.getPassword()));
+		}
+
+		catch (NoSuchAlgorithmException a) {
+			a.printStackTrace();
+		}
+
+		catch (UnsupportedEncodingException a) {
+			a.printStackTrace();
+		}
+
+		try {
+			if (validateInputField() == false) {
+				if (session.getAttribute("failCount") != null) {
+					failCount = Integer.parseInt(session.getAttribute(
+							"failCount").toString());
+				}
+				failCount++;
+				session.setAttribute("failCount", failCount);
+				return ERROR;
+			}
+			UserMapper userMapper = new UserDAO();
+			User userResult = userMapper.select(user);
+			if (userResult == null) {
+				if (session.getAttribute("failCount") != null) {
+					failCount = Integer.parseInt(session.getAttribute(
+							"failCount").toString());
+				}
+				failCount++;
+				session.setAttribute("failCount", failCount);
+				showError(getText("User is not exit"));
+				return ERROR;
+			}
+			user.setUsername(userResult.getUsername());
+			user.setFullname(userResult.getFullname());
+			setCurrentUser(userResult);
+			session.setAttribute("failCount", null);
+			setMessage(getText("welcome ") + user.getFullname());
+			// Later, load top 8 news here
+			return SUCCESS;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			showError("Error while login. Try again");
+			return ERROR;
+		}
+	}
+	
 	// ======================================================================================================
 	// VALIDATE INPUT FIELD
 	/**
@@ -189,71 +192,43 @@ public class LoginAction extends BaseAction implements ModelDriven<User> {
 			return false;
 		}
 	}
-
 	// ======================================================================================================
-	// LOGIN USER
-	/**
-	 * execute action login,check user exist?
-	 * 
-	 * @param null
-	 * @return success or error (String)
-	 * 
-	 */
-	@Action("/login_action")
-	public String execute() {
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		String type = ServletActionContext.getRequest().getMethod();
-
-		if (type.toUpperCase() == "GET") {
-			return "successCx";
-		}
-
-		try {
-			user.setPassword(ValidateUtil.MD5Encryption(user.getPassword()));
-		}
-
-		catch (NoSuchAlgorithmException a) {
-			a.printStackTrace();
-		}
-
-		catch (UnsupportedEncodingException a) {
-			a.printStackTrace();
-		}
-
-		try {
-			if (validateInputField() == false) {
-				if (session.getAttribute("failCount") != null) {
-					failCount = Integer.parseInt(session.getAttribute(
-							"failCount").toString());
-				}
-				failCount++;
-				session.setAttribute("failCount", failCount);
-				return ERROR;
-			}
-			UserMapper userMapper = new UserDAO();
-			User userResult = userMapper.select(user);
-			if (userResult == null) {
-				if (session.getAttribute("failCount") != null) {
-					failCount = Integer.parseInt(session.getAttribute(
-							"failCount").toString());
-				}
-				failCount++;
-				session.setAttribute("failCount", failCount);
-				showError(getText("User is not exit"));
-				return ERROR;
-			}
-			user.setUsername(userResult.getUsername());
-			user.setFullname(userResult.getFullname());
-			setCurrentUser(userResult);
-			session.setAttribute("failCount", null);
-			setMessage(getText("welcome ") + user.getFullname());
-			// Later, load top 8 news here
-			return SUCCESS;
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			showError("Error while login. Try again");
-			return ERROR;
-		}
+	// GETTER _ SETTER
+	public int getFailCount() {
+		return failCount;
 	}
 
+	public void setFailCount(int failCount) {
+		this.failCount = failCount;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getIdmessage() {
+		return idmessage;
+	}
+
+	public void setIdmessage(String idmessage) {
+		this.idmessage = idmessage;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	// ======================================================================================================
+	// GET MODEL FOR CONSUMER
+	@Override
+	public User getModel() {
+		return user;
+	}
 }

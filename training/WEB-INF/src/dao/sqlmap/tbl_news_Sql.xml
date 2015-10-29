@@ -57,6 +57,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM news
 	</select>
 	
+    <select id="getAllNewsOn" parameterType="map" resultType="News" resultMap="newsResult">
+		SELECT *
+		FROM news 
+		WHERE status = 1
+		ORDER BY id DESC
+		LIMIT #{limit} OFFSET #{offset}
+    </select>
+   
+     <select id="get8NewsOn" resultType="News" resultMap="newsResult">
+		SELECT *
+		FROM news 
+		WHERE status = 1
+		ORDER BY id DESC
+		LIMIT 8
+    </select>
+    
+    <select id="getTheLastestNews" resultType="News" resultMap="newsResult">
+		SELECT *
+		FROM news 
+		WHERE status = 1
+		ORDER BY id DESC
+		LIMIT 1
+    </select>
+    
+    <select id="countForSearchNewsOn" resultType="int">
+		SELECT count(*)
+		FROM news
+		WHERE status = 1
+	</select>
+	
     <update id="enableNews" parameterType="int">
 		UPDATE news
 	    SET status = 1

@@ -150,4 +150,54 @@ public class NewsDAO implements NewsMapper {
 		}
 	}
 
+	@Override
+	public int countForSearchNewsOn() throws Exception {
+		SqlSession session  = DaoConfig.getSqlSessionFactory().openSession();
+		try {
+			return session.getMapper(NewsMapper.class).countForSearchNewsOn();
+		}catch (Exception e) {
+			session.rollback();
+			throw e;
+		}finally{
+			session.close();
+		}
+	}
+
+	@Override
+	public ArrayList<News> getAllNewsOn(@Param("limit") int limit,
+			@Param("offset") int offset) throws Exception {
+		SqlSession session  = DaoConfig.getSqlSessionFactory().openSession();
+		try {
+			return session.getMapper(NewsMapper.class).getAllNews(limit, offset);
+		}catch (Exception e) {
+			session.rollback();
+			throw e;
+		}finally{
+			session.close();
+		}
+	}
+
+	@Override
+	public ArrayList<News> get8NewsOn() {
+		try {
+			return session.getMapper(NewsMapper.class).get8NewsOn();
+		} catch (Exception e) {
+			session.rollback();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public News getTheLastestNews() {
+		try {
+			return session.getMapper(NewsMapper.class).getTheLastestNews();
+		} catch (Exception e) {
+			session.rollback();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
 }

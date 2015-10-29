@@ -35,6 +35,11 @@
 		<put-attribute name="master_content" value="/views/authAdmin/listUser.jsp" />
 	</definition>
 	<!-- ========================================================================================== -->
+	<!-- NEWS -->
+	<definition name="tiles.detail_news" extends="baseLayout">
+		<put-attribute name="master_content" value="/views/news/detailNews.jsp" />
+	</definition>
+	<!-- ========================================================================================== -->
 	<!-- NEWS ADMIN -->
 	<definition name="tiles.create_news" extends="baseLayout">
 		<put-attribute name="master_content" value="/views/newsAdmin/createNews.jsp" />

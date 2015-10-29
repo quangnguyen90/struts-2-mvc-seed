@@ -44,3 +44,7 @@ function readURL(input)
 $("#news-avatar").change(function(){
     readURL(this);
 });
+
+$("body").on('mouseover','.top8NewsItem',function(){
+	newsIs.getDetailNews($(this).attr('data-newsTitle'), $(this).attr('data-newsImg'), $(this).attr('data-newsBrief'), $(this).attr('data-newsId'));
+});

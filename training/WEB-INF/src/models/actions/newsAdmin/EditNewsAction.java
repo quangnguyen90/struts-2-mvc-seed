@@ -19,15 +19,12 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
 import com.opensymphony.xwork2.ModelDriven;
-
 import common.base.BaseAction;
 import common.util.ValidateUtil;
+
 import dao.dao.NewsDAO;
-import dao.dao.UserDAO;
 import dao.domain.News;
-import dao.domain.User;
 import dao.mapper.NewsMapper;
-import dao.mapper.UserMapper;
 
 @Results({
 		@Result(name = "success", type = "tiles", location = "tiles.edit_news"),

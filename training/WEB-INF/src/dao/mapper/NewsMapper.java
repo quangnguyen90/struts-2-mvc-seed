@@ -16,5 +16,9 @@ public interface NewsMapper {
   public int disableNews(Integer newsId);
   
   public ArrayList<News>getAllNews(@Param("limit") int limit, @Param("offset") int offset) throws Exception;	
+  public ArrayList<News>getAllNewsOn(@Param("limit") int limit, @Param("offset") int offset) throws Exception;	
+  public ArrayList<News>get8NewsOn();
+  public News getTheLastestNews();
   public int countForSearch() throws Exception;
+  public int countForSearchNewsOn() throws Exception;
 }
