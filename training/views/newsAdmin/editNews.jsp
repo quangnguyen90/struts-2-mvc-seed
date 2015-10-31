@@ -63,7 +63,37 @@
 </div>
 <!-- /contents -->
 <!-- Javascript -->
-<script type="text/javascript"
-	src="<s:url value="/assets/js/news/news.js"/>"></script>
-<script type="text/javascript"
-	src="<s:url value="/assets/js/news/newsEvent.js"/>"></script>
+<script type="text/javascript" src='<s:url value="/assets/js/news/news.js"/>'></script>
+<script type="text/javascript" src='<s:url value="/assets/js/news/newsEvent.js"/>'></script>
+<!-- EDTIOR CONFIGURATION -->
+<script type="text/javascript" src='<s:url value="/assets/js/ckeditor/ckeditor.js"/>'></script>
+
+<script type="text/javascript">
+  window.onload = function()
+  {
+    // Used for click submit again
+    if(CKEDITOR.instances['edit-news-content']) { 
+        CKEDITOR.remove(CKEDITOR.instances['edit-news-content']); 
+    } 
+
+    CKEDITOR.config.width = 1080; 
+    CKEDITOR.config.height = 450; 
+     //Whether to convert all remaining characters not included in the ASCII character table to their relative 
+    //decimal numeric representation of HTML entity. When set to force, it will convert all entities into this format. 
+    //For example : &#27721;&#35821;."
+    CKEDITOR.config.entities_processNumerical = 'force'; // used for UTF-8
+    CKEDITOR.replace('edit-news-content',
+      { uiColor: '#C2D6FF',
+        // for save data, Allow everything (disable ACF)
+        allowedContent: 
+          'h1 h2 h3 p blockquote strong em;' +
+          'a[!href];' +
+          'img(left,right)[!src,alt,width,height];' +
+          'table tr th td caption;' +
+          'span{!font-family};' +
+          'span{!color};' +
+          'span(!marker);' + 'del ins', 
+        basicEntities: false
+      }); 
+  }
+</script>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -25,7 +25,9 @@
 		<p class="help-block">
 			<img src='<s:property value="%{contextPath + imgAURL}"/>' id="news_image" alt="Responsive image" class="img-rounded" style="max-width: 400px; max-height: 350px">
 		</p>
-		<p><s:property value="%{news.content}"/></p>
+		<p>
+			<s:property value="%{news.content}" escapeHtml="false"/>
+		</p>
 	</div>
 </div>
 <!--end the form-->

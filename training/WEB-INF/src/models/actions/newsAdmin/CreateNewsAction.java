@@ -89,7 +89,7 @@ public class CreateNewsAction extends BaseAction implements ModelDriven<News> {
 					}
 				}
 			} else {
-				news.setAvatar("/assets/img/news-img/aswome.png");
+				news.setAvatar("/assets/img/news-img/awsome.jpg");
 			}
 			// ========================================================================================
 			// INSERT NEWS
