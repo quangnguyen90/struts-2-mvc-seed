@@ -65,5 +65,10 @@
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/ognl-3.0.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/xwork-core-2.3.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/CKFinder-2.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/CKFinderPlugin-FileEditor-2.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/CKFinderPlugin-ImageResize-2.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/CKFinderPlugin-Watermark-2.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="WEB-INF/lib/ckeditor-java-core-3.5.3.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

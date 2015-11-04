@@ -1,5 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>  
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="ckeditor" uri="http://ckeditor.com" %> 
+<%@ taglib prefix="ckfinder" uri="http://cksource.com/ckfinder"%>
+<%@ page import="com.ckeditor.CKEditorConfig"%>  
+
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	<legend>
@@ -56,34 +60,56 @@
 			<button type="submit" class="btn btn-default">Submit</button>
 		</div>
 	</div>
+
+	<% 
+		/*====================================*/
+		/* Ex 1: integrate CKEDITOR with *.jar */
+		/* About Edit News: will integrate CKEDITOR with js*/
+		/*====================================*/
+		
+	    CKEditorConfig settings = new CKEditorConfig();
+	    settings.addConfigValue("filebrowserBrowseUrl","/training/assets/addons/ckfinder/ckfinder.html");
+	    settings.addConfigValue("filebrowserImageBrowseUrl","/training/assets/addons/ckfinder/ckfinder.html?type=Images");
+	    settings.addConfigValue("filebrowserFlashBrowseUrl","/training/assets/addons/ckfinder/ckfinder.html?type=Flash");
+	    settings.addConfigValue("filebrowserUploadUrl","/training/assets/addons/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files");
+	    settings.addConfigValue("filebrowserImageUploadUrl","/training/assets/addons/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images");
+	    settings.addConfigValue("filebrowserFlashUploadUrl","/training/assets/addons/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash");
+
+	    //settings.addConfigValue("width", "500");
+    	//settings.addConfigValue("height", "200");  
+    	//settings.addConfigValue("toolbar", "Basic");  
+    	settings.addConfigValue("allowedContent", "h1 h2 h3 p blockquote strong em;a[!href];img(left,right)[!src,alt,width,height];table tr th td caption;span{!font-family};span{!color};span(!marker);del ins");  
+    	settings.addConfigValue("basicEntities",false);
+	%>
+
+	<ckeditor:replace replace="news-content" basePath="/training/assets/addons/ckeditor/" config="<%=settings %>" />
 </s:form>
 </div>
 <!--end the form-->
 </div>
 <!-- /contents -->
 <!-- Javascript -->
-<script type="text/javascript"
-	src="<s:url value="/assets/js/news/news.js"/>"></script>
-<script type="text/javascript"
-	src="<s:url value="/assets/js/news/newsEvent.js"/>"></script>
-
-<script type="text/javascript" src='<s:url value="/assets/js/ckeditor/ckeditor.js"/>'></script>
-
+<script type="text/javascript" src='<s:url value="/assets/js/news/news.js"/>'></script>
+<script type="text/javascript" src='<s:url value="/assets/js/news/newsEvent.js"/>'></script>
+<!-- EDTIOR CONFIGURATION -->
+<!-- <script type="text/javascript" src='<s:url value="/assets/addons/ckeditor/ckeditor.js"/>'></script>
+<script type="text/javascript" src='<s:url value="/assets/addons/ckfinder/ckfinder.js"/>'></script> -->
+<!--
 <script type="text/javascript">
-  window.onload = function()
+  /*window.onload = function()
   {
     // Used for click submit again
     if(CKEDITOR.instances['news-content']) { 
         CKEDITOR.remove(CKEDITOR.instances['news-content']); 
     } 
 
-    CKEDITOR.config.width = 1080; 
+    CKEDITOR.config.width = 1024; 
     CKEDITOR.config.height = 450; 
      //Whether to convert all remaining characters not included in the ASCII character table to their relative 
     //decimal numeric representation of HTML entity. When set to force, it will convert all entities into this format. 
     //For example : &#27721;&#35821;."
     CKEDITOR.config.entities_processNumerical = 'force'; // used for UTF-8
-    CKEDITOR.replace('news-content',
+    var editor = CKEDITOR.replace('news-content',
       { uiColor: '#C2D6FF',
         // for save data, Allow everything (disable ACF)
         allowedContent: 
@@ -96,5 +122,8 @@
           'span(!marker);' + 'del ins', 
         basicEntities: false
       }); 
-  }
+
+    CKFinder.setupCKEditor( editor, '/training/assets/addons/ckfinder/' );
+  }*/
 </script>
+-->
