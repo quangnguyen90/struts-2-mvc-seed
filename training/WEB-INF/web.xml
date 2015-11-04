@@ -34,7 +34,7 @@
 	<!-- =============================================================== CKFINDER INTEGRATION -->
 	<filter>  
 	    <filter-name>FileUploadFilter</filter-name>  
-	    <filter-class>com.ckfinder.connector.FileUploadFilter</filter-class>  
+	    <filter-class>common.ckplugins.FileUploadFilter</filter-class>  
 	    
 	    <init-param>  
 	        <param-name>sessionCookieName</param-name>  
@@ -53,7 +53,7 @@
 	
   	<servlet> 
 		<servlet-name>ConnectorServlet</servlet-name> 
-		<servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class> 
+		<servlet-class>common.ckplugins.ConnectorServlet</servlet-class> 
 		<init-param> 
 			<param-name>XMLConfig</param-name> 
 			<param-value>/WEB-INF/config.xml</param-value><!-- Here for the path corresponding to 3 files --> 
@@ -66,10 +66,8 @@
 	</servlet> 
 	<servlet-mapping> 
 		<servlet-name>ConnectorServlet</servlet-name> 
-		<url-pattern> 
-			/training/assets/addons/ckfinder/core/connector/java/connector.java 
-	        <!--Here according to their ckfinder folder path, I was/plugins/ckfinder/core/connector/java/connector.java --> 
-		</url-pattern> 
+		<!--Here according to their ckfinder folder path, I was/plugins/ckfinder/core/connector/java/connector.java --> 
+		<url-pattern> /training/assets/addons/ckfinder/core/connector/java/connector.java</url-pattern> 
 	</servlet-mapping> 
 	<!-- =============================================================== END CKFINDER INTEGRATION -->
 
@@ -103,10 +101,10 @@
 	</security-constraint> -->
 	
 	<!-- Session time out from log out -->
-	<!-- <session-config>
+	<session-config>
 		<session-timeout>30</session-timeout>
-	</session-config> -->
-	
+	</session-config>
+		
 	<security-role>
 		<role-name>Denied</role-name>
 	</security-role>

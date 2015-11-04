@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WEB-INF/src/common/base/BaseAction.java=UTF-8
+encoding//WEB-INF/src/common/ckplugins/utils/FileUtils.java=UTF-8
 encoding//WEB-INF/src/common/util/MiscUtils.java=UTF-8
 encoding//WEB-INF/src/controllers/interceptors/LoginMasterInterceptor.java=UTF-8
 encoding//WEB-INF/src/dao/domain/News.java=UTF-8
